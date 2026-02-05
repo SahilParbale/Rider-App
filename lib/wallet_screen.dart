@@ -11,9 +11,14 @@ class WalletScreen extends StatelessWidget {
       body: Stack(
         children: [
           // Green Header Background
-          Container(
-            height: 280,
-            color: const Color(0xFF4CAF50), // Main Green
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 280,
+              color: const Color(0xFF4CAF50), // Main Green
+            ),
           ),
           
           SafeArea(
@@ -44,7 +49,7 @@ class WalletScreen extends StatelessWidget {
                 // Scrollable Content
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

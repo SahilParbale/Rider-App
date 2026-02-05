@@ -79,7 +79,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
           // 2. Top Bar (Header)
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Row(
                 children: [
                    // Back Button Removed for persistent nav
@@ -93,7 +93,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
           // 3. Current Location Button (Top Right)
           Positioned(
             top: 50, // Below status bar area
-            right: 16,
+            right: 8,
             child: SafeArea(
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -135,7 +135,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(8),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

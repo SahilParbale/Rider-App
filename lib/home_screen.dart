@@ -21,19 +21,24 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Stack(
         children: [
           // Green Header Background
-          Container(
-            height: 300,
-            decoration: const BoxDecoration(
-              color: AppColors.headerGreen,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 300,
+              decoration: const BoxDecoration(
+                color: AppColors.headerGreen,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
               ),
             ),
           ),
           SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -101,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   
                   // Greeting Text
                   Text(
-                    "Hello, Xyz Islam",
+                    "Hello, Sahil Sharma",
                     style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,

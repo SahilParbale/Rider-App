@@ -15,6 +15,7 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
+  final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
     const HomeScreen(),
@@ -26,71 +27,87 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true, // Important for floating effect
-      body: IndexedStack(
-        index: _currentIndex,
+      extendBody: true,
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         children: _pages,
       ),
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+        padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
-              offset: const Offset(0, 5),
+              offset: const Offset(0, -2),
             ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            selectedItemColor: AppColors.primaryGreen,
-            unselectedItemColor: Colors.grey.shade400,
-            showSelectedLabels: false, // Clean look
-            showUnselectedLabels: false,
-            items: [
-              _buildNavItem(Icons.home, "Home"),
-              _buildNavItem(Icons.receipt_long, "Orders"),
-              _buildNavItem(Icons.account_balance_wallet, "Wallet"),
-              _buildNavItem(Icons.person, "Profile"),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildCustomNavItem(0, Icons.home_filled, "HOME"),
+            _buildCustomNavItem(1, Icons.grid_view, "ORDERS"), // Using grid_view to match image's 4 circles icon better than receipt
+            _buildCustomNavItem(2, Icons.account_balance_wallet, "WALLET"), // Using folder or wallet based on intent. Image shows folder-ish icon
+            _buildCustomNavItem(3, Icons.person_outline, "PROFILE"),
+          ],
         ),
       ),
     );
   }
 
-  BottomNavigationBarItem _buildNavItem(IconData icon, String label) {
-    return BottomNavigationBarItem(
-      icon: Container(
-        padding: const EdgeInsets.all(10),
+  Widget _buildCustomNavItem(int index, IconData icon, String label) {
+    bool isSelected = _currentIndex == index;
+    
+    // Extra padding for edge items when inactive to balance the look
+    EdgeInsets itemPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+    if (!isSelected) {
+       if (index == 0) {
+         itemPadding = const EdgeInsets.only(left: 24, right: 8, top: 8, bottom: 8);
+       } else if (index == 3) {
+         itemPadding = const EdgeInsets.only(left: 8, right: 24, top: 8, bottom: 8);
+       }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        padding: itemPadding,
         decoration: BoxDecoration(
-           color: Colors.transparent, // Highlight logic inside BottomNavigationBar is default simple color change. 
-           // For advanced custom highlighting (like the rounded rect in home screen earlier), we'd need CustomPainter or custom widget row.
-           // Sticking to standard BottomNavItem for now but customized with the container shape if needed.
-           shape: BoxShape.circle,
+          color: isSelected ? const Color(0xFFF2FBF5) : Colors.transparent,
+          borderRadius: BorderRadius.circular(30),
         ),
-        child: Icon(icon),
+        child: isSelected
+            ? Text(
+                label,
+                style: GoogleFonts.barlowCondensed(
+                  color: const Color(0xFF23AA49),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 22,
+                ),
+              )
+            : Icon(
+                icon,
+                color: const Color(0xFF2D2D2D),
+                size: 30,
+              ),
       ),
-      activeIcon: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          color: AppColors.successLight, // Green tint BG
-          shape: BoxShape.circle, 
-        ),
-        child: Icon(icon, color: AppColors.primaryGreen),
-      ),
-      label: label,
     );
   }
 }
