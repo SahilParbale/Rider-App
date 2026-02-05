@@ -46,13 +46,12 @@ class WalletScreen extends StatelessWidget {
                 
                 const SizedBox(height: 10),
 
-                // Scrollable Content
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                // Fixed Content
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                         // Balance Card
                         Container(
                           width: double.infinity,
@@ -148,6 +147,17 @@ class WalletScreen extends StatelessWidget {
                         ),
 
                         const SizedBox(height: 24),
+                    ],
+                  ),
+                ),
+
+                // Scrollable Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
                         // Payment Methods
                         Row(

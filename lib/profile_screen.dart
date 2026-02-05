@@ -23,11 +23,11 @@ class ProfileScreen extends StatelessWidget {
           ),
           
           SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 0), // Full width for list items
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                   // App Bar
                    Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
@@ -139,10 +139,20 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
+                  ],
+                ),
 
-                  // Personal Information
-                  Padding(
+                // Scrollable Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+
+                        // Personal Information
+                        Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
                       "Personal Information",
@@ -197,10 +207,12 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   
-                  // Bottom Nav Placeholder to push content up if needed
-                  // Or rely on global nav
-                ],
-              ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           

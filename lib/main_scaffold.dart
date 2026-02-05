@@ -17,15 +17,20 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
-  final List<Widget> _pages = [
-    const HomeScreen(),
-    const TrackingScreen(),
-    const WalletScreen(),
-    const ProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      const HomeScreen(),
+      TrackingScreen(onBack: () {
+        _pageController.animateToPage(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }),
+      const WalletScreen(),
+      const ProfileScreen(),
+    ];
     return Scaffold(
       extendBody: true,
       body: PageView(
@@ -35,9 +40,9 @@ class _MainScaffoldState extends State<MainScaffold> {
             _currentIndex = index;
           });
         },
-        children: _pages,
+        children: pages,
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: _currentIndex == 1 ? null : Container(
         margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
@@ -55,7 +60,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildCustomNavItem(0, Icons.home_filled, "HOME"),
-            _buildCustomNavItem(1, Icons.grid_view, "ORDERS"), // Using grid_view to match image's 4 circles icon better than receipt
+            _buildCustomNavItem(1, Icons.shopping_cart_outlined, "ORDERS"),
             _buildCustomNavItem(2, Icons.account_balance_wallet, "WALLET"), // Using folder or wallet based on intent. Image shows folder-ish icon
             _buildCustomNavItem(3, Icons.person_outline, "PROFILE"),
           ],

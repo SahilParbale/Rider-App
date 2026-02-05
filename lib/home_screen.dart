@@ -37,11 +37,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            child: Column(
+              children: [
+                // Fixed Header Section
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                   // Top Header: Avatar + Online Toggle + Notification
                   Row(
                     children: [
@@ -149,9 +152,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  
-                  // Auto-Settle Dues
-                  Container(
+                    ],
+                  ),
+                ),
+                
+                // Scrollable Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Auto-Settle Dues
+                        Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -272,8 +285,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     iconColor: Colors.green, // Adjust based on image maybe Teal/Green
                   ),
                   const SizedBox(height: 80), // Bottom padding for content to not start behind nav bar
-                ],
-              ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

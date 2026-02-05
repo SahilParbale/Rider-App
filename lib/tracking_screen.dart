@@ -4,7 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TrackingScreen extends StatefulWidget {
-  const TrackingScreen({super.key});
+  final VoidCallback? onBack;
+  const TrackingScreen({super.key, this.onBack});
 
   @override
   State<TrackingScreen> createState() => _TrackingScreenState();
@@ -105,6 +106,35 @@ class _TrackingScreenState extends State<TrackingScreen> {
                    ],
                 ),
                 child: const Icon(Icons.my_location, color: Color(0xFF2E7D32)),
+              ),
+            ),
+          ),
+
+          // Back Button (Top Left) - Styled as Navbar Item
+          Positioned(
+            top: 50,
+            left: 8,
+            child: SafeArea(
+              child: GestureDetector(
+                onTap: widget.onBack,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(
+                     color: const Color(0xFFF2FBF5), // Light green background like Home tab
+                     borderRadius: BorderRadius.circular(30), // Pill shape
+                     boxShadow: [
+                       BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+                     ],
+                  ),
+                  child: Text(
+                    "BACK",
+                    style: GoogleFonts.barlowCondensed(
+                      color: const Color(0xFF23AA49),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
