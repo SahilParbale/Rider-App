@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'withdraw_screen.dart';
+import 'settle_payment_screen.dart';
+import 'add_money_screen.dart';
+import 'constants.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -110,7 +113,7 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F0F0), // Light grey background
+      backgroundColor: const Color(0xFFF5F5F5), // Light grey background
       body: Stack(
         children: [
           // Green Header Background
@@ -119,133 +122,167 @@ class _WalletScreenState extends State<WalletScreen> {
             left: -5,
             right: -5,
             child: Container(
-              height: 280,
-              color: const Color(0xFF4CAF50), // Main Green
+              height: 220,
+              decoration: const BoxDecoration(
+                color: AppColors.headerGreen,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
             ),
           ),
           
           SafeArea(
             child: Column(
               children: [
-                // Top Bar
-                  Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Back Button Removed for persistent nav
-                      Text(
-                        "Wallet",
-                        style: GoogleFonts.poppins(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                // Top Sections (Header + Floating Card)
+                 Padding(
+                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       // Header Row
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         crossAxisAlignment: CrossAxisAlignment.end,
+                         children: [
+                            Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Text(
+                                 "Wallet",
+                                 style: GoogleFonts.barlowCondensed(
+                                   fontSize: 32,
+                                   fontWeight: FontWeight.w700,
+                                   color: Colors.white,
+                                 ),
+                               ),
+                               Text(
+                                 "Manage your finances",
+                                 style: GoogleFonts.poppins(
+                                   fontSize: 10,
+                                   color: Colors.white.withOpacity(0.9),
+                                 ),
+                               ),
+                             ],
+                           ),
+                           // Status Icons (or profile)
+
+                         ],
+                       ),
+                       const SizedBox(height: 20),
+
+                       // Available Balance Card (Floating Style)
+                       Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
                           color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             Row(
+                               children: [
+                                 Icon(Icons.account_balance_wallet_outlined, color: Colors.grey[400], size: 20),
+                                 const SizedBox(width: 8),
+                                 Text(
+                                  "Available Balance",
+                                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                                ),
+                               ],
+                             ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "\$789.00",
+                              style: GoogleFonts.barlowCondensed(
+                                fontSize: 42,
+                                fontWeight: FontWeight.w700, 
+                                color: const Color(0xFF2C3E50),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF4CAF50), // Green
+                                      foregroundColor: Colors.white,
+                                      elevation: 0,
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(Icons.arrow_outward, size: 18),
+                                        const SizedBox(width: 8),
+                                        Text("Withdraw", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                       Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const AddMoneyScreen()),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFFF5F5F5), // Light grey
+                                      foregroundColor: Colors.black87,
+                                      elevation: 0,
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(Icons.add, size: 18),
+                                        const SizedBox(width: 8),
+                                        Text("Add Money", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 24), // Center gravity adjustment if needed
-                    ],
-                  ),
-                ),
-                
-                const SizedBox(height: 10),
+                      const SizedBox(height: 20),
+                     ],
+                   ),
+                 ),
 
-                // Fixed Content
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        // Balance Card
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(24),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
-                              BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 5)),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                               Row(
-                                 children: [
-                                   Icon(Icons.account_balance_wallet_outlined, color: Colors.grey[400], size: 20),
-                                   const SizedBox(width: 8),
-                                   Text(
-                                    "Available Balance",
-                                    style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
-                                  ),
-                                 ],
-                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "\$789.00",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w600, // Bold but not too heavy
-                                  color: const Color(0xFF2C3E50),
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => const WithdrawScreen()),
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFF4CAF50), // Green
-                                        foregroundColor: Colors.white,
-                                        elevation: 0,
-                                        padding: const EdgeInsets.symmetric(vertical: 16),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(Icons.arrow_outward, size: 18),
-                                          const SizedBox(width: 8),
-                                          Text("Withdraw", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFFF5F5F5), // Light grey
-                                        foregroundColor: Colors.black87,
-                                        elevation: 0,
-                                        padding: const EdgeInsets.symmetric(vertical: 16),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(Icons.add, size: 18),
-                                          const SizedBox(width: 8),
-                                          Text("Add Money", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                // Scrollable Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16), // Match Withdraw padding
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         
-                        const SizedBox(height: 20),
-
-                        // Stats Row (This Week / This Month)
+                        // Stats Row
                         Row(
                           children: [
                             Expanded(child: _buildStatCard("This Week", "\$245", const Color(0xFF4CAF50))),
@@ -253,19 +290,8 @@ class _WalletScreenState extends State<WalletScreen> {
                             Expanded(child: _buildStatCard("This Month", "\$1,024", Colors.blue)),
                           ],
                         ),
-
                         const SizedBox(height: 24),
-                    ],
-                  ),
-                ),
 
-                // Scrollable Content
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
 
                         // Payment Methods
                         Row(
@@ -348,6 +374,13 @@ class _WalletScreenState extends State<WalletScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,6 +419,13 @@ class _WalletScreenState extends State<WalletScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+         boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
       ),
       child: Row(
         children: [
@@ -441,6 +481,13 @@ class _WalletScreenState extends State<WalletScreen> {
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF4CAF50) : Colors.white,
           borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+             if(!isSelected)
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.05),
+                              blurRadius: 10,
+                            ),
+                          ],
         ),
         child: Text(
           label,
@@ -471,6 +518,13 @@ class _WalletScreenState extends State<WalletScreen> {
        decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
       ),
       child: Row(
         children: [

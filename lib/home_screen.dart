@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'notifications_screen.dart';
 import 'withdraw_screen.dart';
+import 'settle_payment_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -352,9 +353,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 8),
           Text(
             amount,
-            style: GoogleFonts.poppins(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            style: GoogleFonts.barlowCondensed(
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
               color: textColor,
             ),
           ),
@@ -365,6 +366,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+                );
+              } else if (title == "Due to company") {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettlePaymentScreen()),
                 );
               }
             },
@@ -425,9 +431,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 12),
           Text(
             count,
-            style: GoogleFonts.poppins(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            style: GoogleFonts.barlowCondensed(
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
               color: label == "Cancelled" ? AppColors.error : AppColors.success,
             ),
           ),

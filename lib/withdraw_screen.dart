@@ -263,8 +263,9 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                               child: Center(
                                 child: Text(
                                   "\$$amount",
-                                  style: GoogleFonts.poppins(
+                                  style: GoogleFonts.barlowCondensed(
                                     fontWeight: FontWeight.w600,
+                                    fontSize: 18,
                                     color: Colors.black87,
                                   ),
                                 ),
@@ -454,7 +455,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                              Text(amount, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.black87)),
+                              Text(amount, style: GoogleFonts.barlowCondensed(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.black87)),
                               Text(date, style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
                               const SizedBox(height: 2),
                               Text(bank, style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey[600])),

@@ -8,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: Stack(
         children: [
           // Green Header
@@ -17,63 +17,75 @@ class ProfileScreen extends StatelessWidget {
             left: -5,
             right: -5,
             child: Container(
-              height: 300,
-              color: const Color(0xFF4CAF50),
+              height: 220,
+              decoration: const BoxDecoration(
+                color: AppColors.headerGreen,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
             ),
           ),
           
           SafeArea(
             child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                  // App Bar
-                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "My Profile",
-                          style: GoogleFonts.poppins(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                        // Status Icons (Simulated)
-                        Row(
-                          children: [
-                            Icon(Icons.signal_cellular_alt, color: Colors.white.withOpacity(0.8), size: 18),
-                            const SizedBox(width: 8),
-                            Icon(Icons.wifi, color: Colors.white.withOpacity(0.8), size: 18),
-                            const SizedBox(width: 8),
-                            Icon(Icons.battery_full, color: Colors.white.withOpacity(0.8), size: 18),
+                // Top Content (Header + Floating Card)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Column(
+                    children: [
+                      // Header Row
+                      Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         crossAxisAlignment: CrossAxisAlignment.end,
+                         children: [
+                            Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Text(
+                                 "My Profile",
+                                 style: GoogleFonts.barlowCondensed(
+                                   fontSize: 32,
+                                   fontWeight: FontWeight.w700,
+                                   color: Colors.white,
+                                 ),
+                               ),
+                               Text(
+                                 "Personal details & settings",
+                                 style: GoogleFonts.poppins(
+                                   fontSize: 10,
+                                   color: Colors.white.withOpacity(0.9),
+                                 ),
+                               ),
+                             ],
+                           ),
+                           // Status Icons (or something else)
+
+                         ],
+                       ),
+
+                       const SizedBox(height: 20),
+
+                       // Profile Card (Floating Style)
+                       Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // Profile Card
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 5)),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
+                        child: Column(
+                          children: [
+                             Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Avatar
@@ -102,102 +114,97 @@ class ProfileScreen extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
+                                     const SizedBox(height: 8),
+                                      Text(
                                           "Sahil Sharma",
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
+                                          style: GoogleFonts.barlowCondensed(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w700,
                                             color: const Color(0xFF2C3E50),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      Text(
+                                          "Delivery Partner",
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 24),
-                          const Divider(),
+                          const Divider(height: 1, color: Color(0xFFEEEEEE)),
                           const SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               _buildStatItem("150", "Deliveries"),
                               _buildVerticalDivider(),
-                              _buildStatItem("\$789", "Earnings"),
+                              _buildStatItem("\$789", "Ratings"), // Changed label to something else or keep Earnings
                               _buildVerticalDivider(),
-                              _buildStatItem("2.5y", "Experience"),
+                              _buildStatItem("4.8", "Rating"), // Changed to Rating for variety or keep Experience
                             ],
                           )
-                        ],
-                      ),
-                    ),
+                          ],
+                        ),
+                       ),
+                       const SizedBox(height: 20),
+                    ],
                   ),
-
-                  const SizedBox(height: 20),
-                  ],
                 ),
 
                 // Scrollable Content
                 Expanded(
                   child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 10),
-
+                        
                         // Personal Information
-                        Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      "Personal Information",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFF2C3E50),
+                        Text(
+                          "Personal Information",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFF2C3E50),
+                          ),
+                        ),
+                      const SizedBox(height: 12),
+                      Column(
+                        children: [
+                          _buildInfoTile(Icons.phone_outlined, "Phone Number", "+1 (555) 123-4567"),
+                          _buildInfoTile(Icons.email_outlined, "Email Address", "xyz.islam@email.com"),
+                          _buildInfoTile(Icons.location_on_outlined, "Address", "123 Main St, San Francisco"),
+                        ],
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Column(
-                    children: [
-                      _buildInfoTile(Icons.phone_outlined, "Phone Number", "+1 (555) 123-4567"),
-                      _buildInfoTile(Icons.email_outlined, "Email Address", "xyz.islam@email.com"),
-                      _buildInfoTile(Icons.location_on_outlined, "Address", "123 Main St, San Francisco"),
-                    ],
-                  ),
 
-                   const SizedBox(height: 30),
+                       const SizedBox(height: 30),
 
-                  // Account Settings
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      "Account Settings",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                         color: const Color(0xFF2C3E50),
+                      // Account Settings
+                      Text(
+                        "Account Settings",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                           color: const Color(0xFF2C3E50),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Column(
-                    children: [
-                      _buildSettingsCard(Icons.credit_card, "Payment Methods", Colors.blue),
-                      _buildSettingsCard(Icons.shield_outlined, "Privacy & Security", Colors.orange),
-                      _buildSettingsCard(Icons.notifications_outlined, "Notifications", Colors.green),
-                      _buildSettingsCard(Icons.logout, "Logout", Colors.red, isDestructive: true),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  
-                        const SizedBox(height: 40),
+                      const SizedBox(height: 12),
+                      Column(
+                        children: [
+                          _buildSettingsCard(Icons.credit_card, "Payment Methods", Colors.blue),
+                          _buildSettingsCard(Icons.shield_outlined, "Privacy & Security", Colors.orange),
+                          _buildSettingsCard(Icons.notifications_outlined, "Notifications", Colors.green),
+                          _buildSettingsCard(Icons.logout, "Logout", Colors.red, isDestructive: true),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
                       ],
                     ),
                   ),
@@ -217,9 +224,9 @@ class ProfileScreen extends StatelessWidget {
       children: [
         Text(
           value,
-          style: GoogleFonts.poppins(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
+          style: GoogleFonts.barlowCondensed(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
             color: Colors.black87,
           ),
         ),
@@ -242,20 +249,16 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDivider() {
-    return Divider(height: 1, color: Colors.grey[100], indent: 60, endIndent: 20);
-  }
-
   Widget _buildInfoTile(IconData icon, String title, String subtitle) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18), // Rounded corners
+        borderRadius: BorderRadius.circular(16), // Rounded corners
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
-            blurRadius: 20,
+            blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
@@ -276,7 +279,7 @@ class ProfileScreen extends StatelessWidget {
             color: title.contains("Phone") 
                 ? Colors.blue 
                 : (title.contains("Email") ? Colors.green : Colors.orange), 
-            size: 22
+            size: 20
           ),
         ),
         title: Text(title, style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
@@ -289,14 +292,14 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildSettingsCard(IconData icon, String title, Color color, {bool isDestructive = false}) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
-            blurRadius: 20,
+            blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
@@ -308,7 +311,7 @@ class ProfileScreen extends StatelessWidget {
             color: color.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(icon, color: color, size: 22),
+          child: Icon(icon, color: color, size: 20),
         ),
         title: Text(
           title, 
