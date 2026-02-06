@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
+import 'notifications_screen.dart';
+import 'withdraw_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
           // Green Header Background
           Positioned(
             top: 0,
-            left: 0,
-            right: 0,
+            left: -5,
+            right: -5,
             child: Container(
               height: 300,
               decoration: const BoxDecoration(
@@ -56,51 +58,70 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const Spacer(),
                       // Custom Online Switch
-                      Container(
-                        height: 36,
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          children: [
-                             Switch(
-                                value: isOnline,
-                                onChanged: (val) {
-                                  setState(() {
-                                    isOnline = val;
-                                  });
-                                },
-                                activeColor: AppColors.primaryGreen,
-                                activeTrackColor: Colors.white,
-                                inactiveThumbColor: Colors.grey,
-                                inactiveTrackColor: Colors.white,
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                             ),
-                             Text(
-                               isOnline ? "Online" : "Offline",
-                               style: GoogleFonts.poppins(
-                                 fontSize: 14,
-                                 fontWeight: FontWeight.w500,
-                                 color: Colors.black,
-                               ),
-                             ),
-                             const SizedBox(width: 8),
-                          ],
+                      // Custom Online/Offline Button
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isOnline = !isOnline;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: isOnline ? const Color(0xFFF2FBF5) : const Color(0xFFFFEBEE),
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                isOnline ? Icons.check_circle : Icons.power_settings_new,
+                                color: isOnline ? const Color(0xFF23AA49) : const Color(0xFFEF5350),
+                                size: 24,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                isOnline ? "ONLINE" : "OFFLINE",
+                                style: GoogleFonts.barlowCondensed(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: isOnline ? const Color(0xFF23AA49) : const Color(0xFFEF5350),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.notifications_none,
-                          color: AppColors.primaryGreen,
-                          size: 24,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotificationsScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.notifications_none,
+                            color: AppColors.primaryGreen,
+                            size: 24,
+                          ),
                         ),
                       ),
                     ],
@@ -130,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Expanded(
                         child: _buildStatCard(
+                          context, // Pass context
                           title: "Total Earnings",
                           amount: "\$789",
                           buttonText: "Withdraw Now",
@@ -141,6 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: _buildStatCard(
+                          context, // Pass context
                           title: "Due to company",
                           amount: "\$189",
                           buttonText: "Settle Now",
@@ -297,7 +320,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildStatCard({
+  Widget _buildStatCard(
+    BuildContext context, {
     required String title,
     required String amount,
     required String buttonText,
@@ -335,20 +359,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                buttonText,
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+          GestureDetector(
+            onTap: () {
+              if (title == "Total Earnings") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+                );
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Text(
+                  buttonText,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
             ),

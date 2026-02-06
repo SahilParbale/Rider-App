@@ -1,8 +1,111 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'withdraw_screen.dart';
 
-class WalletScreen extends StatelessWidget {
+class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
+
+  @override
+  State<WalletScreen> createState() => _WalletScreenState();
+}
+
+class _WalletScreenState extends State<WalletScreen> {
+  String _selectedFilter = "All";
+
+  final List<Map<String, dynamic>> _transactions = [
+    {
+      "icon": Icons.trending_up,
+      "title": "Order Delivery",
+      "id": "#01234",
+      "desc": "Delivery earnings",
+      "time": "2 hours ago",
+      "amount": "+\$8.50",
+      "isPositive": true,
+      "type": "Credit",
+    },
+    {
+      "icon": Icons.account_balance,
+      "title": "Bank Transfer",
+      "id": "",
+      "desc": "Withdrawn to Bank ****4532",
+      "time": "Yesterday",
+      "amount": "\$150.00",
+      "isPositive": false,
+      "isWithdrawal": true,
+      "type": "Debit",
+    },
+    {
+      "icon": Icons.trending_up,
+      "title": "Order Delivery",
+      "id": "#01189",
+      "desc": "Delivery earnings",
+      "time": "Yesterday",
+      "amount": "+\$12.30",
+      "isPositive": true,
+      "type": "Credit",
+    },
+    {
+      "icon": Icons.local_gas_station,
+      "title": "Fuel Expense",
+      "id": "",
+      "desc": "Gasoline purchase",
+      "time": "2 days ago",
+      "amount": "\$25.00",
+      "isPositive": false,
+      "isWithdrawal": true,
+      "customIconBg": const Color(0xFFFFEBEE),
+      "customIconColor": Colors.red,
+      "type": "Debit",
+    },
+    {
+      "icon": Icons.trending_up,
+      "title": "Order Delivery",
+      "id": "#00987",
+      "desc": "Delivery earnings",
+      "time": "2 days ago",
+      "amount": "+\$15.75",
+      "isPositive": true,
+      "type": "Credit",
+    },
+    {
+      "icon": Icons.trending_up,
+      "title": "Weekly Bonus",
+      "id": "",
+      "desc": "Performance bonus",
+      "time": "3 days ago",
+      "amount": "+\$50.00",
+      "isPositive": true,
+      "customIconBg": const Color(0xFFFFF3E0),
+      "customIconColor": Colors.orange,
+      "type": "Credit",
+    },
+    {
+      "icon": Icons.shopping_bag_outlined,
+      "title": "Equipment Buy",
+      "id": "",
+      "desc": "Delivery bag purchase",
+      "time": "4 days ago",
+      "amount": "\$45.00",
+      "isPositive": false,
+      "isWithdrawal": true,
+      "type": "Debit",
+    },
+     {
+      "icon": Icons.trending_up,
+      "title": "Order Delivery",
+      "id": "#00852",
+      "desc": "Delivery earnings",
+      "time": "5 days ago",
+      "amount": "+\$9.20",
+      "isPositive": true,
+      "type": "Credit",
+    },
+  ];
+
+  List<Map<String, dynamic>> get filteredTransactions {
+    if (_selectedFilter == "All") return _transactions;
+    return _transactions.where((t) => t['type'] == _selectedFilter).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +116,8 @@ class WalletScreen extends StatelessWidget {
           // Green Header Background
           Positioned(
             top: 0,
-            left: 0,
-            right: 0,
+            left: -5,
+            right: -5,
             child: Container(
               height: 280,
               color: const Color(0xFF4CAF50), // Main Green
@@ -90,7 +193,12 @@ class WalletScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+                                        );
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color(0xFF4CAF50), // Green
                                         foregroundColor: Colors.white,
@@ -195,81 +303,32 @@ class WalletScreen extends StatelessWidget {
                         // Filters
                         Row(
                           children: [
-                            _buildFilterChip("All", true),
+                            _buildFilterChip("All"),
                             const SizedBox(width: 12),
-                            _buildFilterChip("Credit", false),
+                            _buildFilterChip("Credit"),
                             const SizedBox(width: 12),
-                            _buildFilterChip("Debit", false),
+                            _buildFilterChip("Debit"),
                           ],
                         ),
                         const SizedBox(height: 16),
 
                         // Transactions List
-                        _buildTransactionCard(
-                          icon: Icons.trending_up, 
-                          title: "Order Delivery", 
-                          id: "#01234", 
-                          desc: "Delivery earnings", 
-                          time: "2 hours ago", 
-                          amount: "+\$8.50", 
-                          isPositive: true
-                        ),
-                        const SizedBox(height: 12),
-                        _buildTransactionCard(
-                          icon: Icons.account_balance, // Banking icon
-                          title: "Bank Transfer", 
-                          id: "", 
-                          desc: "Withdrawn to Bank ****4532", 
-                          time: "Yesterday", 
-                          amount: "\$150.00", 
-                          isPositive: false,
-                          isWithdrawal: true
-                        ),
-                         const SizedBox(height: 12),
-                        _buildTransactionCard(
-                          icon: Icons.trending_up, 
-                          title: "Order Delivery", 
-                          id: "#01189", 
-                          desc: "Delivery earnings", 
-                          time: "Yesterday", 
-                          amount: "+\$12.30", 
-                          isPositive: true
-                        ),
-                        const SizedBox(height: 12),
-                        _buildTransactionCard(
-                           icon: Icons.local_gas_station,
-                           title: "Fuel Expense",
-                           id: "",
-                           desc: "Gasoline purchase",
-                           time: "2 days ago",
-                           amount: "\$25.00",
-                           isPositive: false,
-                           isWithdrawal: true, // Red icon bg
-                           customIconBg: const Color(0xFFFFEBEE),
-                           customIconColor: Colors.red,
-                        ),
-                         const SizedBox(height: 12),
-                        _buildTransactionCard(
-                          icon: Icons.trending_up, 
-                          title: "Order Delivery", 
-                          id: "#00987", 
-                          desc: "Delivery earnings", 
-                          time: "2 days ago", 
-                          amount: "+\$15.75", 
-                          isPositive: true
-                        ),
-                        const SizedBox(height: 12),
-                         _buildTransactionCard(
-                          icon: Icons.trending_up, 
-                          title: "Weekly Bonus", 
-                          id: "", 
-                          desc: "Performance bonus", 
-                          time: "3 days ago", 
-                          amount: "+\$50.00", 
-                          isPositive: true,
-                          customIconBg: const Color(0xFFFFF3E0),
-                          customIconColor: Colors.orange,
-                        ),
+                        ...filteredTransactions.map((t) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: _buildTransactionCard(
+                             icon: t['icon'],
+                             title: t['title'],
+                             id: t['id'],
+                             desc: t['desc'],
+                             time: t['time'],
+                             amount: t['amount'],
+                             isPositive: t['isPositive'],
+                             isWithdrawal: t['isWithdrawal'] ?? false,
+                             customIconBg: t['customIconBg'],
+                             customIconColor: t['customIconColor'],
+                          ),
+                        )),
+                        
                         const SizedBox(height: 30),
                       ],
                     ),
@@ -369,19 +428,27 @@ class WalletScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFilterChip(String label, bool isSelected) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFF4CAF50) : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        label,
-         style: GoogleFonts.poppins(
-          fontSize: 14, 
-          color: isSelected ? Colors.white : Colors.grey,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+  Widget _buildFilterChip(String label) {
+    bool isSelected = _selectedFilter == label;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedFilter = label;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF4CAF50) : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          label,
+           style: GoogleFonts.poppins(
+            fontSize: 14, 
+            color: isSelected ? Colors.white : Colors.grey,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
         ),
       ),
     );

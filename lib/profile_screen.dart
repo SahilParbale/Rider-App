@@ -14,8 +14,8 @@ class ProfileScreen extends StatelessWidget {
           // Green Header
           Positioned(
             top: 0,
-            left: 0,
-            right: 0,
+            left: -5,
+            right: -5,
             child: Container(
               height: 300,
               color: const Color(0xFF4CAF50),
@@ -187,23 +187,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildSettingsTile(Icons.credit_card, "Payment Methods", Colors.blue),
-                        _buildDivider(),
-                        _buildSettingsTile(Icons.shield_outlined, "Privacy & Security", Colors.orange),
-                        _buildDivider(),
-                        _buildSettingsTile(Icons.notifications_outlined, "Notifications", Colors.green),
-                        _buildDivider(),
-                         _buildSettingsTile(Icons.logout, "Logout", Colors.red, isDestructive: true),
-                      ],
-                    ),
+                  Column(
+                    children: [
+                      _buildSettingsCard(Icons.credit_card, "Payment Methods", Colors.blue),
+                      _buildSettingsCard(Icons.shield_outlined, "Privacy & Security", Colors.orange),
+                      _buildSettingsCard(Icons.notifications_outlined, "Notifications", Colors.green),
+                      _buildSettingsCard(Icons.logout, "Logout", Colors.red, isDestructive: true),
+                    ],
                   ),
                   const SizedBox(height: 40),
                   
@@ -297,27 +287,41 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsTile(IconData icon, String title, Color color, {bool isDestructive = false}) {
-    return ListTile(
-      leading: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1), 
-          borderRadius: BorderRadius.circular(12),
+  Widget _buildSettingsCard(IconData icon, String title, Color color, {bool isDestructive = false}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 20,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: color, size: 22),
         ),
-        child: Icon(icon, color: color, size: 22),
+        title: Text(
+          title, 
+          style: GoogleFonts.poppins(
+            fontSize: 14, 
+            fontWeight: FontWeight.w500, 
+            color: isDestructive ? Colors.red : Colors.black87
+          )
+        ),
+        trailing: const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        onTap: () {},
       ),
-      title: Text(
-        title, 
-        style: GoogleFonts.poppins(
-          fontSize: 14, 
-          fontWeight: FontWeight.w500, 
-          color: isDestructive ? Colors.red : Colors.black87
-        )
-      ),
-      trailing: const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      onTap: () {},
     );
   }
 }
