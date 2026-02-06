@@ -12,8 +12,11 @@ class WalletScreen extends StatefulWidget {
   State<WalletScreen> createState() => _WalletScreenState();
 }
 
-class _WalletScreenState extends State<WalletScreen> {
+class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClientMixin {
   String _selectedFilter = "All";
+
+  @override
+  bool get wantKeepAlive => true;
 
   final List<Map<String, dynamic>> _transactions = [
     {
@@ -112,6 +115,7 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5), // Light grey background
       body: Stack(

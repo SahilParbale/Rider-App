@@ -20,7 +20,13 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const HomeScreen(),
+      HomeScreen(onProfileTap: () {
+        _pageController.animateToPage(
+          3,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }),
       TrackingScreen(onBack: () {
         _pageController.animateToPage(
           0,
@@ -60,7 +66,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildCustomNavItem(0, Icons.home_filled, "HOME"),
-            _buildCustomNavItem(1, Icons.shopping_cart_outlined, "ORDERS"),
+            _buildCustomNavItem(1, Icons.delivery_dining, "ORDERS"),
             _buildCustomNavItem(2, Icons.account_balance_wallet, "WALLET"), // Using folder or wallet based on intent. Image shows folder-ish icon
             _buildCustomNavItem(3, Icons.person_outline, "PROFILE"),
           ],

@@ -4,20 +4,28 @@ import 'constants.dart';
 import 'notifications_screen.dart';
 import 'withdraw_screen.dart';
 import 'settle_payment_screen.dart';
+import 'completed_orders_screen.dart';
+import 'cancelled_orders_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback? onProfileTap;
+  const HomeScreen({super.key, this.onProfileTap});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
   bool isOnline = true;
   bool autoSettle = false;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     // Scaffold removed, returning the main content Stack directly.
     return Container(
       color: const Color(0xFFF5F5F5),
@@ -51,11 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Top Header: Avatar + Online Toggle + Notification
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 24,
-                        backgroundImage: NetworkImage(
-                            'https://i.pravatar.cc/150?u=xyz'), // Placeholder
-                        backgroundColor: Colors.white,
+                      GestureDetector(
+                        onTap: () {
+                          widget.onProfileTap?.call();
+                        },
+                        child: const CircleAvatar(
+                          radius: 24,
+                          backgroundImage: NetworkImage(
+                              'https://i.pravatar.cc/150?u=xyz'), // Placeholder
+                          backgroundColor: Colors.white,
+                        ),
                       ),
                       const Spacer(),
                       // Custom Online Switch
@@ -254,6 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Expanded(
                         child: _buildOverviewCard(
+                          context,
                           icon: Icons.assignment_turned_in_outlined,
                           count: "150",
                           label: "Completed",
@@ -264,6 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: _buildOverviewCard(
+                          context,
                           icon: Icons.assignment_late_outlined, // Cancelled icon equivalent
                           count: "5",
                           label: "Cancelled",
@@ -398,54 +413,70 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildOverviewCard({
+  Widget _buildOverviewCard(
+    BuildContext context, {
     required IconData icon,
     required String count,
     required String label,
     required Color iconColor,
     required Color bgColor,
   }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: bgColor,
-              shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: () {
+        if (label == "Completed") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CompletedOrdersScreen()),
+          );
+        } else if (label == "Cancelled") {
+           Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CancelledOrdersScreen()),
+          );
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
             ),
-            child: Icon(icon, color: iconColor, size: 28),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            count,
-            style: GoogleFonts.barlowCondensed(
-              fontSize: 32,
-              fontWeight: FontWeight.w700,
-              color: label == "Cancelled" ? AppColors.error : AppColors.success,
+          ],
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: bgColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: iconColor, size: 28),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: Colors.grey,
+            const SizedBox(height: 12),
+            Text(
+              count,
+              style: GoogleFonts.barlowCondensed(
+                fontSize: 32,
+                fontWeight: FontWeight.w700,
+                color: label == "Cancelled" ? AppColors.error : AppColors.success,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

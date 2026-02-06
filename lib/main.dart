@@ -3,7 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'main_scaffold.dart';
 
+import 'package:flutter/services.dart';
+
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   runApp(const DeliveryApp());
 }
 

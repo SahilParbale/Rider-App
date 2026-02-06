@@ -11,8 +11,11 @@ class TrackingScreen extends StatefulWidget {
   State<TrackingScreen> createState() => _TrackingScreenState();
 }
 
-class _TrackingScreenState extends State<TrackingScreen> {
+class _TrackingScreenState extends State<TrackingScreen> with AutomaticKeepAliveClientMixin {
   final Completer<GoogleMapController> _controller = Completer();
+
+  @override
+  bool get wantKeepAlive => true;
 
   static const LatLng _kPizzaHutt = LatLng(40.732128, -73.999619); // 237 E 14th St
   static const LatLng _kUser = LatLng(40.735, -73.99); // Approx nearby
@@ -58,6 +61,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Stack(
         children: [
