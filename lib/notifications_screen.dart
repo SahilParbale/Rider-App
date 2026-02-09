@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 
@@ -7,17 +8,22 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
-      body: Stack(
-        children: [
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.headerGreen,
+        statusBarIconBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF5F5F5),
+        body: Stack(
+          children: [
           // Green Header
           // List Content (At bottom of stack so it scrolls behind header)
           // List Content (At bottom of stack so it scrolls behind header)
           // List Content (At bottom of stack so it scrolls behind header)
           // List Content (At bottom of stack so it scrolls behind header)
           ListView(
-            padding: const EdgeInsets.only(top: 100, left: 16, right: 16), // Content starts below the compact header
+            padding: const EdgeInsets.only(top: 130, left: 16, right: 16), // Increased top padding for spacing
             children: [
               _buildNotificationItem(
                 title: "Payment Received",

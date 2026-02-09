@@ -54,7 +54,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
             left: -5,
             right: -5,
             child: Container(
-              height: 220,
+              height: 180,
               decoration: const BoxDecoration(
                 color: AppColors.headerGreen,
                 borderRadius: BorderRadius.only(
@@ -70,7 +70,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
               children: [
                 // Fixed Header Section
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -96,7 +96,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                                 ],
                               ),
                               child: Text(
-                                "BACK",
+                                "Back",
                                 style: GoogleFonts.barlowCondensed(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w700,

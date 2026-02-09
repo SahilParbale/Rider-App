@@ -143,7 +143,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
               children: [
                 // Top Sections (Header + Floating Card)
                  Padding(
-                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                   padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
@@ -360,7 +360,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
                           ),
                         )),
                         
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 100), // Increased to avoid overlap with nav bar
                       ],
                     ),
                   ),

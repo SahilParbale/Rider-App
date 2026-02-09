@@ -215,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                           _buildSettingsCard(Icons.logout, "Logout", Colors.red, isDestructive: true),
                         ],
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 100), // Increased to avoid overlap with nav bar
                       ],
                     ),
                   ),

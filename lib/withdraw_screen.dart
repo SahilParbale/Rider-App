@@ -39,7 +39,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
             left: -5,
             right: -5,
             child: Container(
-              height: 220, // Reduced height
+              height: 180, // Reduced height
               decoration: const BoxDecoration(
                 color: AppColors.headerGreen,
                 borderRadius: BorderRadius.only(
@@ -56,7 +56,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
               children: [
                 // Fixed Header Section
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -82,7 +82,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                                 ],
                               ),
                               child: Text(
-                                "BACK",
+                                "Back",
                                 style: GoogleFonts.barlowCondensed(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w700,
@@ -97,7 +97,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                "Withdraw",
+                                "Withdrawl",
                                 style: GoogleFonts.barlowCondensed(
                                   fontSize: 32,
                                   fontWeight: FontWeight.w700,

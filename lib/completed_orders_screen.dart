@@ -101,7 +101,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
             left: -5,
             right: -5,
             child: Container(
-              height: 250, // Slightly taller for stats cards
+              height: 260, // Compact height to fit all elements
               decoration: const BoxDecoration(
                 color: AppColors.headerGreen,
                 borderRadius: BorderRadius.only(
@@ -116,7 +116,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
                   child: Column(
                     children: [
                       // Header Row
@@ -141,7 +141,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                  ],
                                ),
                                child: Text(
-                                 "BACK",
+                                 "Back",
                                  style: GoogleFonts.barlowCondensed(
                                    fontSize: 22,
                                    fontWeight: FontWeight.w700,
@@ -162,6 +162,10 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                ),
                          ],
                        ),
+                       const SizedBox(height: 5), // Minimized spacing
+
+                       // Summary Cards Row
+
                        const SizedBox(height: 24),
 
                        // Summary Cards Row
@@ -173,6 +177,50 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                            const SizedBox(width: 16),
                             Expanded(
                              child: _buildSummaryCard("Total Earned", "\$92.05", Colors.white),
+                           ),
+                         ],
+                       ),
+
+                       const SizedBox(height: 10), // Reduced spacing to fit search bar compact
+
+                       // Search Bar & Filter (Moved to Header)
+                       Row(
+                         children: [
+                           Expanded(
+                             child: Container(
+                               padding: const EdgeInsets.symmetric(horizontal: 16),
+                               height: 50,
+                               decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(25),
+                                 boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
+                               ),
+                               child: Row(
+                                 children: [
+                                   Icon(Icons.search, color: Colors.grey[400]),
+                                   const SizedBox(width: 8),
+                                   Expanded(
+                                     child: TextField(
+                                       decoration: InputDecoration(
+                                         border: InputBorder.none,
+                                         hintText: "Search...",
+                                         hintStyle: GoogleFonts.poppins(color: Colors.grey[400], fontSize: 14),
+                                       ),
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                           ),
+                           const SizedBox(width: 12),
+                           Container(
+                             padding: const EdgeInsets.all(12),
+                             decoration: BoxDecoration(
+                               color: Colors.white,
+                               shape: BoxShape.circle,
+                                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
+                             ),
+                             child: const Icon(Icons.filter_list, color: Colors.black87),
                            ),
                          ],
                        ),
@@ -190,50 +238,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                     ),
                     child: Column(
                       children: [
-                        // Search Bar
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(25),
-                                    boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.search, color: Colors.grey[400]),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: "Search by name or ID...",
-                                            hintStyle: GoogleFonts.poppins(color: Colors.grey[400], fontSize: 14),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                   boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
-                                ),
-                                child: const Icon(Icons.filter_list, color: Colors.black87),
-                              ),
-                            ],
-                          ),
-                        ),
+
                         const SizedBox(height: 16),
 
                         // Filter Chips

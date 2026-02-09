@@ -324,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                     iconBg: const Color(0xFFE8F5E9), 
                     iconColor: Colors.green, // Adjust based on image maybe Teal/Green
                   ),
-                  const SizedBox(height: 80), // Bottom padding for content to not start behind nav bar
+                  const SizedBox(height: 100), // Increased to avoid overlap with nav bar
                       ],
                     ),
                   ),

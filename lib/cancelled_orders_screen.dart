@@ -94,7 +94,7 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
             left: -5,
             right: -5,
             child: Container(
-              height: 250, 
+              height: 260, 
               decoration: const BoxDecoration(
                 color: Color(0xFFF90F24), // Red color from photos
                 borderRadius: BorderRadius.only(
@@ -109,7 +109,7 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
                   child: Column(
                     children: [
                       // Header Row
@@ -123,7 +123,7 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
                              child: Container(
                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                                decoration: BoxDecoration(
-                                 color: Colors.white, // White against Red
+                                 color: const Color(0xFFFEF2F2), // Light Red background
                                  borderRadius: BorderRadius.circular(30),
                                  boxShadow: [
                                    BoxShadow(
@@ -134,7 +134,7 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
                                  ],
                                ),
                                child: Text(
-                                 "BACK",
+                                 "Back",
                                  style: GoogleFonts.barlowCondensed(
                                    fontSize: 22,
                                    fontWeight: FontWeight.w700,
@@ -155,6 +155,7 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
                                ),
                          ],
                        ),
+                       const SizedBox(height: 5),
                        const SizedBox(height: 24),
 
                        // Summary Cards Row
@@ -166,6 +167,50 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
                            const SizedBox(width: 16),
                             Expanded(
                              child: _buildSummaryCard("By Customer", "2"),
+                           ),
+                         ],
+                       ),
+
+                       const SizedBox(height: 10),
+
+                       // Search Bar
+                       Row(
+                         children: [
+                           Expanded(
+                             child: Container(
+                               padding: const EdgeInsets.symmetric(horizontal: 16),
+                               height: 50,
+                               decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(25),
+                                 boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
+                               ),
+                               child: Row(
+                                 children: [
+                                   Icon(Icons.search, color: Colors.grey[400]),
+                                   const SizedBox(width: 8),
+                                   Expanded(
+                                     child: TextField(
+                                       decoration: InputDecoration(
+                                         border: InputBorder.none,
+                                         hintText: "Search...",
+                                         hintStyle: GoogleFonts.poppins(color: Colors.grey[400], fontSize: 14),
+                                       ),
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                           ),
+                           const SizedBox(width: 12),
+                           Container(
+                             padding: const EdgeInsets.all(12),
+                             decoration: BoxDecoration(
+                               color: Colors.white,
+                               shape: BoxShape.circle,
+                                boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
+                             ),
+                             child: const Icon(Icons.filter_list, color: Colors.black87),
                            ),
                          ],
                        ),
@@ -183,53 +228,10 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
                     ),
                     child: Column(
                       children: [
-                        // Search Bar
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(25),
-                                    boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.search, color: Colors.grey[400]),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: "Search by name or ID...",
-                                            hintStyle: GoogleFonts.poppins(color: Colors.grey[400], fontSize: 14),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                   boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 5)],
-                                ),
-                                child: const Icon(Icons.filter_list, color: Colors.black87),
-                              ),
-                            ],
-                          ),
-                        ),
+
                         const SizedBox(height: 16),
 
-                        // Filter Chips
+                        // Filter Chips (Fixed)
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -268,52 +270,58 @@ class _CancelledOrdersScreenState extends State<CancelledOrdersScreen> {
                         
                         const SizedBox(height: 16),
 
-                        // Info Box
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16),
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFDE8EA).withOpacity(0.9), // Light Red
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        // Scrollable Area (Info Box + List)
+                        Expanded(
+                          child: ListView(
+                            padding: const EdgeInsets.only(bottom: 20),
                             children: [
-                              const Icon(Icons.info_outline, color: AppColors.error, size: 20),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
+                              // Info Box
+                              Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFDE8EA).withOpacity(0.9), // Light Red
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "About Cancellations",
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 13, color: const Color(0xFF8C1D18)),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "High cancellation rates may affect your account standing. Customer cancellations don't impact your rating.",
-                                      style: GoogleFonts.poppins(fontSize: 11, color: const Color(0xFF8C1D18)),
+                                    const Icon(Icons.info_outline, color: AppColors.error, size: 20),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "About Cancellations",
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 13, color: const Color(0xFF8C1D18)),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            "High cancellation rates may affect your account standing. Customer cancellations don't impact your rating.",
+                                            style: GoogleFonts.poppins(fontSize: 11, color: const Color(0xFF8C1D18)),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
+
+                              const SizedBox(height: 16),
+
+                              // List of Orders
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: Column(
+                                  children: _orders.map((order) {
+                                     if (_selectedFilter != "All Orders" && order["type"] != _selectedFilter && !(_selectedFilter == "Food" && order["type"] == "Food")) return const SizedBox.shrink();
+                                     
+                                     return _buildOrderCard(order);
+                                  }).toList(),
+                                ),
+                              ),
                             ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // List of Orders
-                        Expanded(
-                          child: ListView.builder(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            itemCount: _orders.length,
-                            itemBuilder: (context, index) {
-                              final order = _orders[index];
-                              if (_selectedFilter != "All Orders" && order["type"] != _selectedFilter && !(_selectedFilter == "Food" && order["type"] == "Food")) return const SizedBox.shrink();
-
-                              return _buildOrderCard(order);
-                            },
                           ),
                         ),
                       ],
