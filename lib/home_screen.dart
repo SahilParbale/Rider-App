@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
             left: -5,
             right: -5,
             child: Container(
-              height: 300,
+              height: 220,
               decoration: const BoxDecoration(
                 color: AppColors.headerGreen,
                 borderRadius: BorderRadius.only(
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
               children: [
                 // Fixed Header Section
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  padding: const EdgeInsets.fromLTRB(8, 5, 8, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

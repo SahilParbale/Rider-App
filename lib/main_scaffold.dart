@@ -23,15 +23,15 @@ class _MainScaffoldState extends State<MainScaffold> {
       HomeScreen(onProfileTap: () {
         _pageController.animateToPage(
           3,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutQuart,
         );
       }),
       TrackingScreen(onBack: () {
         _pageController.animateToPage(
           0,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutQuart,
         );
       }),
       const WalletScreen(),
@@ -41,6 +41,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       body: Stack(
         children: [
           PageView(
+            physics: const BouncingScrollPhysics(),
             controller: _pageController,
             onPageChanged: (index) {
               setState(() {
@@ -101,8 +102,8 @@ class _MainScaffoldState extends State<MainScaffold> {
       onTap: () {
         _pageController.animateToPage(
           index,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutQuart,
         );
       },
       child: AnimatedContainer(

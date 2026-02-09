@@ -17,7 +17,7 @@ class NotificationsScreen extends StatelessWidget {
           // List Content (At bottom of stack so it scrolls behind header)
           // List Content (At bottom of stack so it scrolls behind header)
           ListView(
-            padding: const EdgeInsets.only(top: 120, left: 16, right: 16), // Content starts below the compact header
+            padding: const EdgeInsets.only(top: 100, left: 16, right: 16), // Content starts below the compact header
             children: [
               _buildNotificationItem(
                 title: "Payment Received",
@@ -87,7 +87,7 @@ class NotificationsScreen extends StatelessWidget {
               ),
               child: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 16, 24, 24), // Increased bottom padding slightly for look
+                  padding: const EdgeInsets.fromLTRB(24, 8, 24, 24), // Increased bottom padding slightly for look
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center, // Align items vertically in center
                     children: [
@@ -108,7 +108,7 @@ class NotificationsScreen extends StatelessWidget {
                              ],
                            ),
                            child: Text(
-                             "BACK",
+                             "Back",
                              style: GoogleFonts.barlowCondensed(
                                color: const Color(0xFF23AA49),
                                fontWeight: FontWeight.w700,

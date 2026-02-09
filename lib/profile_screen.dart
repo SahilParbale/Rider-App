@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
             left: -5,
             right: -5,
             child: Container(
-              height: 220,
+              height: 180,
               decoration: const BoxDecoration(
                 color: AppColors.headerGreen,
                 borderRadius: BorderRadius.only(
@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
               children: [
                 // Top Content (Header + Floating Card)
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                   child: Column(
                     children: [
                       // Header Row

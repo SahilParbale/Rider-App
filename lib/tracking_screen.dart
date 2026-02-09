@@ -97,7 +97,7 @@ class _TrackingScreenState extends State<TrackingScreen> with AutomaticKeepAlive
 
           // 3. Current Location Button (Top Right)
           Positioned(
-            top: 50, // Below status bar area
+            top: 10, // Below status bar area
             right: 8,
             child: SafeArea(
               child: Container(
@@ -116,7 +116,7 @@ class _TrackingScreenState extends State<TrackingScreen> with AutomaticKeepAlive
 
           // Back Button (Top Left) - Styled as Navbar Item
           Positioned(
-            top: 50,
+            top: 10,
             left: 8,
             child: SafeArea(
               child: GestureDetector(
@@ -131,7 +131,7 @@ class _TrackingScreenState extends State<TrackingScreen> with AutomaticKeepAlive
                      ],
                   ),
                   child: Text(
-                    "BACK",
+                    "Back",
                     style: GoogleFonts.barlowCondensed(
                       color: const Color(0xFF23AA49),
                       fontWeight: FontWeight.w700,

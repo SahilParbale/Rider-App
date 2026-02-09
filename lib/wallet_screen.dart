@@ -126,7 +126,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
             left: -5,
             right: -5,
             child: Container(
-              height: 220,
+              height: 180,
               decoration: const BoxDecoration(
                 color: AppColors.headerGreen,
                 borderRadius: BorderRadius.only(
@@ -143,7 +143,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
               children: [
                 // Top Sections (Header + Floating Card)
                  Padding(
-                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
