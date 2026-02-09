@@ -38,39 +38,48 @@ class _MainScaffoldState extends State<MainScaffold> {
       const ProfileScreen(),
     ];
     return Scaffold(
-      extendBody: true,
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        children: pages,
-      ),
-      bottomNavigationBar: _currentIndex == 1 ? null : Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-        padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: pages,
+          ),
+          if (_currentIndex != 1)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildCustomNavItem(0, Icons.home_filled, "Home"),
+                    _buildCustomNavItem(1, Icons.delivery_dining, "Orders"),
+                    _buildCustomNavItem(2, Icons.account_balance_wallet, "Wallet"),
+                    _buildCustomNavItem(3, Icons.person_outline, "Profile"),
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildCustomNavItem(0, Icons.home_filled, "HOME"),
-            _buildCustomNavItem(1, Icons.delivery_dining, "ORDERS"),
-            _buildCustomNavItem(2, Icons.account_balance_wallet, "WALLET"), // Using folder or wallet based on intent. Image shows folder-ish icon
-            _buildCustomNavItem(3, Icons.person_outline, "PROFILE"),
-          ],
-        ),
+        ],
       ),
     );
   }

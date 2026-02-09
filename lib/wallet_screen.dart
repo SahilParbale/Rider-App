@@ -138,6 +138,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
           ),
           
           SafeArea(
+            bottom: false,
             child: Column(
               children: [
                 // Top Sections (Header + Floating Card)

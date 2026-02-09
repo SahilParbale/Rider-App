@@ -39,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
           ),
           
           SafeArea(
+            bottom: false,
             child: Column(
               children: [
                 // Top Content (Header + Floating Card)

@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
             ),
           ),
           SafeArea(
+            bottom: false,
             child: Column(
               children: [
                 // Fixed Header Section
