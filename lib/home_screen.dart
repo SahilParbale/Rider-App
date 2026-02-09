@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               ),
                               const SizedBox(width: 8),
                               Text(
-                                isOnline ? "ONLINE" : "OFFLINE",
+                                isOnline ? "Online" : "Offline",
                                 style: GoogleFonts.barlowCondensed(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w700,
