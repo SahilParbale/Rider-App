@@ -19,9 +19,6 @@ class NotificationsScreen extends StatelessWidget {
           children: [
           // Green Header
           // List Content (At bottom of stack so it scrolls behind header)
-          // List Content (At bottom of stack so it scrolls behind header)
-          // List Content (At bottom of stack so it scrolls behind header)
-          // List Content (At bottom of stack so it scrolls behind header)
           ListView(
             padding: const EdgeInsets.only(top: 130, left: 16, right: 16), // Increased top padding for spacing
             children: [
@@ -154,8 +151,9 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildNotificationItem({
     required String title,
