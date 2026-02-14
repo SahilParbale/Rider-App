@@ -12,7 +12,28 @@ class AddMoneyScreen extends StatefulWidget {
 class _AddMoneyScreenState extends State<AddMoneyScreen> {
   final TextEditingController _amountController = TextEditingController();
   final double _currentBalance = 789.00;
-  String _selectedPaymentMethod = "Credit/Debit Card";
+  String _paymentType = "Pay App"; // Default selection
+  
+  // Track selection per type
+  PaymentMethod? _selectedPayApp;
+  PaymentMethod? _selectedUPI;
+  PaymentMethod? _selectedBank;
+
+  final List<PaymentMethod> _payAppMethods = [
+    PaymentMethod(id: "1", name: "Google Pay", subtitle: "upi@oksbi", icon: Icons.account_balance_wallet, color: Colors.blue),
+    PaymentMethod(id: "2", name: "PhonePe", subtitle: "upi@ybl", icon: Icons.phonelink_ring, color: Colors.purple),
+    PaymentMethod(id: "3", name: "Paytm", subtitle: "upi@paytm", icon: Icons.payment, color: Colors.indigo),
+  ];
+
+  final List<PaymentMethod> _upiMethods = [
+      PaymentMethod(id: "1", name: "Sarah UPI", subtitle: "sarah@upi", icon: Icons.alternate_email, color: Colors.orange),
+      PaymentMethod(id: "2", name: "Work UPI", subtitle: "sarah.work@okicici", icon: Icons.work, color: Colors.blueGrey),
+  ];
+
+  final List<PaymentMethod> _bankMethods = [ 
+      PaymentMethod(id: "1", name: "HDFC Debit Card", subtitle: "**** 4532", icon: Icons.credit_card, color: Colors.red),
+      PaymentMethod(id: "2", name: "SBI Netbanking", subtitle: "000234912", icon: Icons.account_balance, color: Colors.blue[900]!),
+  ];
 
   @override
   void initState() {
@@ -35,6 +56,233 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
     setState(() {
       _amountController.text = amount;
     });
+  }
+
+  void _showPaymentMethodSelector(String title, List<PaymentMethod> methods, Function(PaymentMethod) onSelect) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.6,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            // Handle
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            
+            // Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text(
+                    title,
+                    style: GoogleFonts.barlowCondensed(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primaryText,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            ),
+            
+            const SizedBox(height: 10),
+            
+            // List
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(24),
+                children: [
+                  ...methods.map((method) => _buildPaymentMethodItem(method, onSelect: onSelect)),
+                  
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPaymentTypeCard(String title, IconData icon, String subtitle, bool isSelected) {
+      return Expanded(
+          child: GestureDetector(
+              onTap: () {
+                  setState(() {
+                      _paymentType = title;
+                      
+                      if (_paymentType == "Pay App") {
+                          _showPaymentMethodSelector("Select Payment App", _payAppMethods, (method) {
+                              setState(() {
+                                  _selectedPayApp = method;
+                                  Navigator.pop(context);
+                              });
+                          });
+                      } else if (_paymentType == "UPI") {
+                          _showPaymentMethodSelector("Select UPI ID", _upiMethods, (method) {
+                              setState(() {
+                                  _selectedUPI = method;
+                                  Navigator.pop(context);
+                              });
+                          });
+                      } else if (_paymentType == "Bank/Card") {
+                          _showPaymentMethodSelector("Select Bank/Card", _bankMethods, (method) {
+                              setState(() {
+                                  _selectedBank = method;
+                                  Navigator.pop(context);
+                              });
+                          });
+                      }
+                  });
+              },
+              child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                  decoration: BoxDecoration(
+                      color: isSelected ? AppColors.primaryGreen : Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.05),
+                              blurRadius: 5,
+                          ),
+                      ],
+                  ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                          Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  color: isSelected ? Colors.white.withOpacity(0.2) : Colors.grey[100],
+                                  shape: BoxShape.circle,
+                              ),
+                              child: Icon(icon, color: isSelected ? Colors.white : AppColors.primaryText, size: 20),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                              title,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: isSelected ? Colors.white : AppColors.primaryText,
+                              ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                              subtitle,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 10,
+                                  color: isSelected ? Colors.white70 : Colors.grey[500],
+                              ),
+                          ),
+                      ],
+                  ),
+              ),
+          )
+      );
+  }
+
+  Widget _buildPaymentMethodItem(PaymentMethod method, {bool isSelected = false, Function(PaymentMethod)? onSelect}) {
+      return Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: isSelected ? AppColors.primaryGreen : Colors.grey.withOpacity(0.2), width: isSelected ? 1.5 : 1),
+              boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                  ),
+              ],
+          ),
+          child: Row(
+              children: [
+                  Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(method.icon, color: Colors.black87),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              Text(
+                                  method.name,
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      color: Colors.black87,
+                                  ),
+                              ),
+                              Text(
+                                  method.subtitle,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      color: Colors.grey[600],
+                                  ),
+                              ),
+                          ],
+                      ),
+                  ),
+                  if (isSelected)
+                      const Icon(Icons.check_circle, color: AppColors.primaryGreen)
+                  else
+                      ElevatedButton(
+                          onPressed: () {
+                               onSelect?.call(method);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryGreen,
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                              ),
+                              elevation: 0,
+                          ),
+                          child: Text(
+                              "Pay",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                              ),
+                          ),
+                      ),
+              ],
+          ),
+      );
   }
 
   @override
@@ -288,7 +536,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
 
                         // Payment Methods
                         Text(
-                          "Payment Method",
+                          "Select Payment Method",
                            style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
@@ -296,30 +544,86 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                         _buildPaymentMethodTile(
-                          icon: Icons.credit_card,
-                          title: "Credit/Debit Card",
-                          subtitle: "**** 4532",
-                          value: "Credit/Debit Card",
-                           iconColor: AppColors.primaryGreen,
-                           iconBg: const Color(0xFFE8F5E9),
+                        
+                        // Payment Type Selection Row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _buildPaymentTypeCard("Pay App", Icons.account_balance_wallet, "Quick payment", _paymentType == "Pay App"),
+                            const SizedBox(width: 12),
+                            _buildPaymentTypeCard("UPI", Icons.payment, "Pay via UPI", _paymentType == "UPI"),
+                            const SizedBox(width: 12),
+                            _buildPaymentTypeCard("Bank/Card", Icons.credit_card, "Card/NetBanking", _paymentType == "Bank/Card"), 
+                          ],
                         ),
-                        _buildPaymentMethodTile(
-                          icon: Icons.account_balance_wallet,
-                          title: "UPI Payment",
-                          subtitle: "Google Pay, PhonePe",
-                          value: "UPI Payment",
-                           iconColor: Colors.black87,
-                           iconBg: Colors.grey[200]!,
-                        ),
-                        _buildPaymentMethodTile(
-                          icon: Icons.account_balance,
-                          title: "Net Banking",
-                          subtitle: "All major banks",
-                          value: "Net Banking",
-                           iconColor: Colors.black87,
-                           iconBg: Colors.grey[200]!,
-                        ),
+                        
+                        const SizedBox(height: 24),
+                        
+                        // Dynamic Content based on Selection
+                        if (_paymentType == "Pay App") ...[
+                            if (_selectedPayApp != null) ...[
+                                Text(
+                                  "Selected Payment App",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                GestureDetector(
+                                    onTap: () => _showPaymentMethodSelector("Select Payment App", _payAppMethods, (method) {
+                                        setState(() {
+                                            _selectedPayApp = method;
+                                            Navigator.pop(context);
+                                        });
+                                    }),
+                                    child: _buildPaymentMethodItem(_selectedPayApp!, isSelected: true),
+                                ),
+                            ]
+                        ] else if (_paymentType == "UPI") ...[
+                            if (_selectedUPI != null) ...[
+                                Text(
+                                  "Selected UPI ID",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                GestureDetector(
+                                    onTap: () => _showPaymentMethodSelector("Select UPI ID", _upiMethods, (method) {
+                                        setState(() {
+                                            _selectedUPI = method;
+                                            Navigator.pop(context);
+                                        });
+                                    }),
+                                    child: _buildPaymentMethodItem(_selectedUPI!, isSelected: true),
+                                ),
+                            ]
+                        ] else if (_paymentType == "Bank/Card") ...[
+                             if (_selectedBank != null) ...[
+                                Text(
+                                  "Selected Bank/Card",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                GestureDetector(
+                                    onTap: () => _showPaymentMethodSelector("Select Bank/Card", _bankMethods, (method) {
+                                        setState(() {
+                                            _selectedBank = method;
+                                            Navigator.pop(context);
+                                        });
+                                    }),
+                                    child: _buildPaymentMethodItem(_selectedBank!, isSelected: true),
+                                ),
+                            ]
+                        ],
 
                          const SizedBox(height: 24),
 
@@ -403,76 +707,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
     );
   }
 
-   Widget _buildPaymentMethodTile({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required String value,
-    required Color iconColor,
-    required Color iconBg,
-  }) {
-    bool isSelected = _selectedPaymentMethod == value;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedPaymentMethod = value;
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: isSelected ? Border.all(color: AppColors.primaryGreen, width: 1.5) : null,
-           boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.05),
-                blurRadius: 5,
-              ),
-            ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: iconBg,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: iconColor, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: isSelected ? AppColors.primaryGreen : Colors.black87,
-                    ),
-                  ),
-                  if(subtitle.isNotEmpty)
-                  Text(
-                    subtitle,
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (isSelected)
-              const Icon(Icons.check_circle, color: AppColors.primaryGreen, size: 24),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   Widget _buildSummaryRow(String label, String value, {bool isBold = false, Color? valueColor, double fontSize = 14}) {
     return Row(
@@ -496,4 +731,20 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
       ],
     );
   }
+}
+
+class PaymentMethod {
+  final String id;
+  final String name;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+
+  PaymentMethod({
+    required this.id, 
+    required this.name, 
+    required this.subtitle, 
+    required this.icon, 
+    required this.color
+  });
 }
