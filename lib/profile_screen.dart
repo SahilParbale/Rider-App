@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'notifications_screen.dart';
+import 'vehicle_details_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -192,6 +193,18 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                           _buildInfoTile(Icons.phone_outlined, "Phone Number", "+1 (555) 123-4567"),
                           _buildInfoTile(Icons.email_outlined, "Email Address", "xyz.islam@email.com"),
                           _buildInfoTile(Icons.location_on_outlined, "Address", "123 Main St, San Francisco"),
+                          _buildInfoTile(
+                            Icons.two_wheeler, 
+                            "Vehicle & License Details", 
+                            "View Details",
+                            showArrow: true,
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(builder: (context) => const VehicleDetailsScreen())
+                              );
+                            }
+                          ),
                         ],
                       ),
 
@@ -260,43 +273,46 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
     );
   }
 
-  Widget _buildInfoTile(IconData icon, String title, String subtitle) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16), // Rounded corners
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: ListTile(
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: title.contains("Phone") 
-                ? const Color(0xFFE3F2FD) // Blue tint
-                : (title.contains("Email") 
-                    ? const Color(0xFFE8F5E9) // Green tint
-                    : const Color(0xFFFFF3E0)), // Orange tint
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(
-            icon, 
-            color: title.contains("Phone") 
-                ? Colors.blue 
-                : (title.contains("Email") ? Colors.green : Colors.orange), 
-            size: 20
-          ),
+  Widget _buildInfoTile(IconData icon, String title, String subtitle, {VoidCallback? onTap, bool showArrow = false}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16), // Rounded corners
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        title: Text(title, style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
-        subtitle: Text(subtitle, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black87)),
-        trailing: const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: title.contains("Phone") 
+                  ? const Color(0xFFE3F2FD) // Blue tint
+                  : (title.contains("Email") 
+                      ? const Color(0xFFE8F5E9) // Green tint
+                      : (title.contains("Address") ? const Color(0xFFFFF3E0) : const Color(0xFFF3E5F5))), // Orange or Purple tint
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              icon, 
+              color: title.contains("Phone") 
+                  ? Colors.blue 
+                  : (title.contains("Email") ? Colors.green : (title.contains("Address") ? Colors.orange : Colors.purple)), 
+              size: 20
+            ),
+          ),
+          title: Text(title, style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
+          subtitle: Text(subtitle, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black87)),
+          trailing: showArrow ? const Icon(Icons.chevron_right, color: Colors.grey, size: 20) : null,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        ),
       ),
     );
   }

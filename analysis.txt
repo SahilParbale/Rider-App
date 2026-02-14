@@ -1,0 +1,31 @@
+﻿Analyzing wallet_screen.dart...                                 
+
+  error - Undefined class 'PaymentMethod' - lib\wallet_screen.dart:24:3 - undefined_class
+  error - Undefined class 'PaymentMethod' - lib\wallet_screen.dart:25:3 - undefined_class
+  error - Undefined class 'PaymentMethod' - lib\wallet_screen.dart:26:3 - undefined_class
+  error - The name 'PaymentMethod' isn't a type, so it can't be used as a type argument - lib\wallet_screen.dart:28:14 - non_type_as_type_argument
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:29:5 - undefined_method
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:30:5 - undefined_method
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:31:5 - undefined_method
+  error - The name 'PaymentMethod' isn't a type, so it can't be used as a type argument - lib\wallet_screen.dart:34:14 - non_type_as_type_argument
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:35:7 - undefined_method
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:36:7 - undefined_method
+  error - The name 'PaymentMethod' isn't a type, so it can't be used as a type argument - lib\wallet_screen.dart:39:14 - non_type_as_type_argument
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:40:7 - undefined_method
+  error - The method 'PaymentMethod' isn't defined for the type '_WalletScreenState' - lib\wallet_screen.dart:41:7 - undefined_method
+  error - The name 'PaymentMethod' isn't a type, so it can't be used as a type argument - lib\wallet_screen.dart:44:55 - non_type_as_type_argument
+  error - Undefined class 'PaymentMethod' - lib\wallet_screen.dart:44:88 - undefined_class
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:151:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:162:68 - deprecated_member_use
+  error - Undefined class 'PaymentMethod' - lib\wallet_screen.dart:193:34 - undefined_class
+  error - Undefined class 'PaymentMethod' - lib\wallet_screen.dart:193:91 - undefined_class
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:200:91 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:203:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:420:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:440:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:698:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:712:37 - deprecated_member_use
+  error - Classes can't be declared inside other classes - lib\wallet_screen.dart:729:1 - class_in_class
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:761:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\wallet_screen.dart:797:50 - deprecated_member_use
+
