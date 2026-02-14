@@ -111,19 +111,24 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
-                // Main Content
+                // Fixed Preview Card
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildPreviewCard(),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Scrollable Content
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Preview Card
-                        _buildPreviewCard(),
-                        
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 10),
                         
                         Text(
                           "Select UPI Provider",
@@ -368,7 +373,7 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
             _upiController.text.isEmpty ? "yourname@bank" : _upiController.text,
             style: GoogleFonts.poppins(
               fontSize: 20, // Reduced from 24
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500, // Reduced weight from w700
               color: _upiController.text.isEmpty ? Colors.grey[200] : Colors.black, // Color to black
               letterSpacing: 0.5,
             ),

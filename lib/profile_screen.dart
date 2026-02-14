@@ -4,6 +4,7 @@ import 'constants.dart';
 import 'notifications_screen.dart';
 import 'vehicle_details_screen.dart';
 import 'payment_methods_screen.dart';
+import 'privacy_security_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -330,6 +331,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const PaymentMethodsScreen()),
+          );
+        } else if (title == "Privacy & Security") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PrivacySecurityScreen()),
           );
         }
       },

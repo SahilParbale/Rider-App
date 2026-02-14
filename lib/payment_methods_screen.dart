@@ -88,33 +88,38 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
-                // Main Content
+                // Fixed Default UPI Card
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildPaymentMethodCard(
+                    provider: _defaultProvider,
+                    upiId: _defaultUpiId,
+                    isDefault: true,
+                    onEdit: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddUpiScreen(
+                            isEdit: true,
+                            initialUpiId: _defaultUpiId,
+                            initialProvider: _defaultProvider,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Scrollable Content
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     children: [
-                      const SizedBox(height: 12), // Added small top padding
-                      _buildPaymentMethodCard(
-                        provider: _defaultProvider,
-                        upiId: _defaultUpiId,
-                        isDefault: true,
-                        onEdit: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddUpiScreen(
-                                isEdit: true,
-                                initialUpiId: _defaultUpiId,
-                                initialProvider: _defaultProvider,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      
-                      const SizedBox(height: 16), // Consistent spacing
+                      const SizedBox(height: 10), // Small top padding for scroll content
                       
                       ..._savedUpiIds.map((upi) => Padding(
                         padding: const EdgeInsets.only(bottom: 16),
@@ -384,7 +389,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                       upiId,
                       style: GoogleFonts.poppins(
                         fontSize: 20, // Reduced from 22
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500, // Reduced weight from w700
                         color: Colors.black, // Color to black
                       ),
                     ),
