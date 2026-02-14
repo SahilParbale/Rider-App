@@ -23,7 +23,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
   // Track selection per type
   PaymentMethod? _selectedPayApp;
   PaymentMethod? _selectedUPI;
-  PaymentMethod? _selectedBank;
 
   final List<PaymentMethod> _payAppMethods = [
     PaymentMethod(id: "1", name: "Google Pay", subtitle: "upi@oksbi", icon: Icons.account_balance_wallet, color: Colors.blue),
@@ -34,11 +33,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
   final List<PaymentMethod> _upiMethods = [
       PaymentMethod(id: "1", name: "Sarah UPI", subtitle: "sarah@upi", icon: Icons.alternate_email, color: Colors.orange),
       PaymentMethod(id: "2", name: "Work UPI", subtitle: "sarah.work@okicici", icon: Icons.work, color: Colors.blueGrey),
-  ];
-
-  final List<PaymentMethod> _bankMethods = [ 
-      PaymentMethod(id: "1", name: "HDFC Debit Card", subtitle: "**** 4532", icon: Icons.credit_card, color: Colors.red),
-      PaymentMethod(id: "2", name: "SBI Netbanking", subtitle: "000234912", icon: Icons.account_balance, color: Colors.blue[900]!),
   ];
 
    void _showPaymentMethodSelector(String title, List<PaymentMethod> methods, Function(PaymentMethod) onSelect) {
@@ -128,13 +122,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
                           _showPaymentMethodSelector("Select UPI ID", _upiMethods, (method) {
                               setState(() {
                                   _selectedUPI = method;
-                                  Navigator.pop(context);
-                              });
-                          });
-                      } else if (_paymentType == "Bank/Card") {
-                          _showPaymentMethodSelector("Select Bank/Card", _bankMethods, (method) {
-                              setState(() {
-                                  _selectedBank = method;
                                   Navigator.pop(context);
                               });
                           });
@@ -566,8 +553,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
                             _buildPaymentTypeCard("Pay App", Icons.account_balance_wallet, "Quick payment", _paymentType == "Pay App"),
                             const SizedBox(width: 12),
                             _buildPaymentTypeCard("UPI", Icons.payment, "Pay via UPI", _paymentType == "UPI"),
-                            const SizedBox(width: 12),
-                            _buildPaymentTypeCard("Bank/Card", Icons.credit_card, "Card/NetBanking", _paymentType == "Bank/Card"), 
                           ],
                         ),
                         
@@ -614,27 +599,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
                                         });
                                     }),
                                     child: _buildPaymentMethodItem(_selectedUPI!, isSelected: true),
-                                ),
-                            ]
-                        ] else if (_paymentType == "Bank/Card") ...[
-                             if (_selectedBank != null) ...[
-                                Text(
-                                  "Selected Bank/Card",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                                const SizedBox(height: 12),
-                                GestureDetector(
-                                    onTap: () => _showPaymentMethodSelector("Select Bank/Card", _bankMethods, (method) {
-                                        setState(() {
-                                            _selectedBank = method;
-                                            Navigator.pop(context);
-                                        });
-                                    }),
-                                    child: _buildPaymentMethodItem(_selectedBank!, isSelected: true),
                                 ),
                             ]
                         ],

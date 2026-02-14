@@ -28,15 +28,9 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
     WithdrawalMethod(id: "2", name: "Work UPI", subtitle: "sarah.work@okicici", icon: Icons.work, color: Colors.blueGrey),
   ];
 
-  final List<WithdrawalMethod> _bankMethods = [
-    WithdrawalMethod(id: "1", name: "Bank of America", subtitle: "**** 4532", icon: Icons.account_balance, color: Colors.red),
-    WithdrawalMethod(id: "2", name: "Chase Bank", subtitle: "**** 7821", icon: Icons.local_atm, color: Colors.blue[900]!),
-  ];
-  
   // Track selection per type
   WithdrawalMethod? _selectedPayApp;
   WithdrawalMethod? _selectedUPI;
-  WithdrawalMethod? _selectedBank;
 
   @override
   void dispose() {
@@ -127,14 +121,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
           child: GestureDetector(
               onTap: () {
                   setState(() {
-                      // Map visual titles to logic types if needed, but here we use direct mapping except "COD" in UI -> "Bank" logic maybe? 
-                      // User requested "Pay App, UPI, Bank".
-                      if (title == "Bank Acc") {
-                          _withdrawType = "Bank"; 
-                      } else {
-                         _withdrawType = title;
-                      }
-                      
                       if (_withdrawType == "Pay App") {
                           _showWithdrawalMethodSelector("Select Payment App", _methods, (method) {
                               setState(() {
@@ -146,13 +132,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                           _showWithdrawalMethodSelector("Select UPI ID", _upiMethods, (method) {
                               setState(() {
                                   _selectedUPI = method;
-                                  Navigator.pop(context);
-                              });
-                          });
-                      } else if (_withdrawType == "Bank") {
-                          _showWithdrawalMethodSelector("Select Bank Account", _bankMethods, (method) {
-                              setState(() {
-                                  _selectedBank = method;
                                   Navigator.pop(context);
                               });
                           });
@@ -576,8 +555,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                           _buildWithdrawTypeCard("Pay App", Icons.account_balance_wallet, "Quick payment", _withdrawType == "Pay App"),
                           const SizedBox(width: 12),
                           _buildWithdrawTypeCard("UPI", Icons.payment, "Pay via UPI", _withdrawType == "UPI"),
-                          const SizedBox(width: 12),
-                          _buildWithdrawTypeCard("Bank Acc", Icons.account_balance, "Direct Transfer", _withdrawType == "Bank"), 
                         ],
                       ),
                       
@@ -624,27 +601,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                                       });
                                   }),
                                   child: _buildPaymentAppItem(_selectedUPI!, isSelected: true),
-                              ),
-                          ]
-                      ] else if (_withdrawType == "Bank") ...[
-                           if (_selectedBank != null) ...[
-                              Text(
-                                "Selected Bank Account",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              GestureDetector(
-                                  onTap: () => _showWithdrawalMethodSelector("Select Bank Account", _bankMethods, (method) {
-                                      setState(() {
-                                          _selectedBank = method;
-                                          Navigator.pop(context);
-                                      });
-                                  }),
-                                  child: _buildPaymentAppItem(_selectedBank!, isSelected: true),
                               ),
                           ]
                       ],
