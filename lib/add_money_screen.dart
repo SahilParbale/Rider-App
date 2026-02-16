@@ -388,7 +388,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              "\$${_currentBalance.toStringAsFixed(2)}",
+                              "₹${_currentBalance.toStringAsFixed(2)}",
                               style: GoogleFonts.barlowCondensed(
                                 color: const Color(0xFF2C3E50),
                                 fontSize: 42,
@@ -444,7 +444,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                           child: Row(
                             children: [
                               Text(
-                                "\$",
+                                "₹",
                                 style: GoogleFonts.poppins(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w600,
@@ -507,7 +507,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "\$$amt",
+                                    "₹$amt",
                                     style: GoogleFonts.barlowCondensed(
                                       fontWeight: FontWeight.w600, // Condensed bold for numbers
                                       fontSize: 18,
@@ -615,13 +615,13 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                           ),
                           child: Column(
                             children: [
-                              _buildSummaryRow("Current Balance", "\$${_currentBalance.toStringAsFixed(2)}"),
+                              _buildSummaryRow("Current Balance", "₹${_currentBalance.toStringAsFixed(2)}"),
                               const SizedBox(height: 8),
-                              _buildSummaryRow("Amount to Add", "\$${amountToAdd.toStringAsFixed(0)}"),
+                              _buildSummaryRow("Amount to Add", "₹${amountToAdd.toStringAsFixed(0)}"),
                               const SizedBox(height: 8),
                               _buildSummaryRow("Transaction Fee", "Free", valueColor: AppColors.primaryGreen),
                               const Padding(padding: EdgeInsets.symmetric(vertical: 8), child: Divider()),
-                              _buildSummaryRow("New Balance", "\$${newBalance.toStringAsFixed(2)}", isBold: true, valueColor: AppColors.primaryGreen, fontSize: 18),
+                              _buildSummaryRow("New Balance", "₹${newBalance.toStringAsFixed(2)}", isBold: true, valueColor: AppColors.primaryGreen, fontSize: 18),
                             ],
                           ),
                         ),
@@ -655,7 +655,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                               elevation: 5,
                           ),
                           child: Text(
-                              "Add \$${amountToAdd.toStringAsFixed(0)} to Wallet",
+                              "Add ₹${amountToAdd.toStringAsFixed(0)} to Wallet",
                               style: GoogleFonts.poppins(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

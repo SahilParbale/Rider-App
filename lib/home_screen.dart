@@ -11,7 +11,8 @@ import 'order_request_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onProfileTap;
-  const HomeScreen({super.key, this.onProfileTap});
+  final VoidCallback? onOrderAccepted;
+  const HomeScreen({super.key, this.onProfileTap, this.onOrderAccepted});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -149,7 +150,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               Navigator.of(context).push(
                                 PageRouteBuilder(
                                   opaque: false,
-                                  pageBuilder: (BuildContext context, _, __) => const OrderRequestScreen(),
+                                  pageBuilder: (BuildContext context, _, __) => OrderRequestScreen(
+                                    onAccept: widget.onOrderAccepted,
+                                  ),
                                 ),
                               );
                             },
@@ -200,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                         child: _buildStatCard(
                           context, // Pass context
                           title: "Total Earnings",
-                          amount: "\$789",
+                          amount: "₹789",
                           buttonText: "Withdraw Now",
                           color1: const Color(0xFF1ABC9C), // Teal
                           color2: const Color(0xFF16A085),
@@ -212,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                         child: _buildStatCard(
                           context, // Pass context
                           title: "Due to company",
-                          amount: "\$189",
+                          amount: "₹189",
                           buttonText: "Settle Now",
                           color1: const Color(0xFFFFAB40), // Orange
                           color2: const Color(0xFFFF9100),

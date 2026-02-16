@@ -24,7 +24,7 @@ class NotificationsScreen extends StatelessWidget {
             children: [
               _buildNotificationItem(
                 title: "Payment Received",
-                message: "Your withdrawal of \$250 has been processed successfully",
+                message: "Your withdrawal of ₹250 has been processed successfully",
                 time: "2 hours ago",
                 icon: Icons.attach_money,
                 iconColor: const Color(0xFF2E7D32), // Dark Green
@@ -48,7 +48,7 @@ class NotificationsScreen extends StatelessWidget {
               ),
               _buildNotificationItem(
                 title: "Due Payment Reminder",
-                message: "You have \$189 due to the company. Settle now to avoid penalties",
+                message: "You have ₹189 due to the company. Settle now to avoid penalties",
                 time: "1 day ago",
                 icon: Icons.error_outline,
                 iconColor: const Color(0xFFD32F2F), // Red
@@ -56,7 +56,7 @@ class NotificationsScreen extends StatelessWidget {
               ),
                _buildNotificationItem(
                 title: "Order Completed",
-                message: "Order #01234 delivered successfully. You earned \$15.50",
+                message: "Order #01234 delivered successfully. You earned ₹15.50",
                 time: "1 day ago",
                 icon: Icons.check_box_outlined,
                 iconColor: const Color(0xFF1976D2), // Blue

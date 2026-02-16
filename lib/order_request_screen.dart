@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
+import 'reject_order_screen.dart';
 
 class OrderRequestScreen extends StatefulWidget {
-  const OrderRequestScreen({super.key});
+  final VoidCallback? onAccept;
+  const OrderRequestScreen({super.key, this.onAccept});
 
   @override
   State<OrderRequestScreen> createState() => _OrderRequestScreenState();
@@ -592,7 +594,10 @@ class _OrderRequestScreenState extends State<OrderRequestScreen> with SingleTick
                            });
                            // Perform accept action
                            Future.delayed(const Duration(seconds: 1), () { // Longer delay to see success
-                             if (mounted) Navigator.pop(context); 
+                             if (mounted) {
+                               widget.onAccept?.call(); // Navigate to Rider Page
+                               Navigator.pop(context); 
+                             }
                            });
                         } else {
                           setState(() {
@@ -629,8 +634,17 @@ class _OrderRequestScreenState extends State<OrderRequestScreen> with SingleTick
           const SizedBox(height: 16),
           // Decline Button
           GestureDetector(
-             onTap: () {
-              Navigator.pop(context);
+              onTap: () {
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  opaque: false, 
+                  pageBuilder: (context, _, __) => const RejectOrderScreen(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                ),
+              );
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),

@@ -26,6 +26,12 @@ class _MainScaffoldState extends State<MainScaffold> {
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeOutQuart,
         );
+      }, onOrderAccepted: () {
+        _pageController.animateToPage(
+          1, // Tracking Screen / Orders
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutQuart,
+        );
       }),
       TrackingScreen(onBack: () {
         _pageController.animateToPage(

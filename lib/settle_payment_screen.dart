@@ -392,7 +392,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                             ),
                             const SizedBox(height: 8),
                              Text(
-                              "\$${_totalAmountDue.toStringAsFixed(0)}",
+                              "₹${_totalAmountDue.toStringAsFixed(0)}",
                               style: GoogleFonts.barlowCondensed(
                                 color: const Color(0xFFE53935), // Red/Orange for Due
                                 fontSize: 42,
@@ -608,16 +608,16 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                            ),
                            child: Column(
                              children: [
-                                _buildSummaryRow("Payment Amount", "\$${enteredAmount.toStringAsFixed(0)}"),
+                                _buildSummaryRow("Payment Amount", "₹${enteredAmount.toStringAsFixed(0)}"),
                                 const SizedBox(height: 12),
-                                _buildSummaryRow("Processing Fee", "\$0", boldValue: true),
+                                _buildSummaryRow("Processing Fee", "₹0", boldValue: true),
                                 const Padding(
                                   padding: EdgeInsets.symmetric(vertical: 12),
                                   child: Divider(height: 1),
                                 ),
-                                _buildSummaryRow("Total Payment", "\$${enteredAmount.toStringAsFixed(0)}", valueColor: AppColors.primaryGreen, boldValue: true, fontSize: 16),
+                                _buildSummaryRow("Total Payment", "₹${enteredAmount.toStringAsFixed(0)}", valueColor: AppColors.primaryGreen, boldValue: true, fontSize: 16),
                                 const SizedBox(height: 6),
-                                _buildSummaryRow("Remaining Balance", "\$${remainingBalance.toStringAsFixed(0)}", valueColor: const Color(0xFFE53935), boldValue: true),
+                                _buildSummaryRow("Remaining Balance", "₹${remainingBalance.toStringAsFixed(0)}", valueColor: const Color(0xFFE53935), boldValue: true),
                              ],
                            ),
                         ),
@@ -651,7 +651,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                               elevation: 5,
                           ),
                           child: Text(
-                              "Settle \$${enteredAmount.toStringAsFixed(0)} Now",
+                              "Settle ₹${enteredAmount.toStringAsFixed(0)} Now",
                               style: GoogleFonts.poppins(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,

@@ -404,7 +404,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                             ),
                             const SizedBox(height: 8),
                              Text(
-                              "\$789.00",
+                              "₹789.00",
                               style: GoogleFonts.barlowCondensed(
                                 color: AppColors.primaryGreen,
                                 fontSize: 42,
@@ -412,7 +412,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                               ),
                             ),
                              Text(
-                              "Minimum withdrawal: \$10",
+                              "Minimum withdrawal: ₹10",
                               style: GoogleFonts.poppins(
                                 color: Colors.grey[400],
                                 fontSize: 12,
@@ -523,7 +523,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "\$$amount",
+                                  "₹$amount",
                                   style: GoogleFonts.barlowCondensed(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18,
@@ -619,8 +619,8 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      _buildWithdrawalItem("\$250.00", "Feb 3, 2026", "Bank of America **** 4532", "Completed"),
-                      _buildWithdrawalItem("\$100.00", "Jan 28, 2026", "Chase Bank **** 7821", "Processing"),
+                      _buildWithdrawalItem("₹250.00", "Feb 3, 2026", "Bank of America **** 4532", "Completed"),
+                      _buildWithdrawalItem("₹100.00", "Jan 28, 2026", "Chase Bank **** 7821", "Processing"),
                       
                       const SizedBox(height: 80), // Space for button
                     ],
@@ -651,7 +651,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                               elevation: 5,
                           ),
                           child: Text(
-                              "Withdraw ${ _amountController.text.isEmpty ? '' : '\$${_amountController.text}' }",
+                              "Withdraw ${ _amountController.text.isEmpty ? '' : '₹${_amountController.text}' }",
                               style: GoogleFonts.poppins(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,

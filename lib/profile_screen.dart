@@ -159,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                             children: [
                               _buildStatItem("150", "Deliveries"),
                               _buildVerticalDivider(),
-                              _buildStatItem("\$789", "Ratings"), // Changed label to something else or keep Earnings
+                              _buildStatItem("₹789", "Ratings"), // Changed label to something else or keep Earnings
                               _buildVerticalDivider(),
                               _buildStatItem("4.8", "Rating"), // Changed to Rating for variety or keep Experience
                             ],
