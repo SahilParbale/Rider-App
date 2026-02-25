@@ -41,112 +41,137 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
     },
   ];
 
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, 
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Container(
-            width: double.infinity,
-            constraints: const BoxConstraints(maxWidth: 360, maxHeight: 520), // Match OrderRequestScreen height approx
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 30,
-                  offset: Offset(0, 10),
+      backgroundColor: const Color(0xFFF5F5F5),
+      body: Stack(
+        children: [
+          // Red Header Background 
+          Positioned(
+            top: 0,
+            left: -5,
+            right: -5,
+            child: Container(
+              height: 220, 
+              decoration: const BoxDecoration(
+                color: Color(0xFFF90F24), // Red color
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                   // 1. Header
-                  _buildHeader(),
-                  const Divider(height: 1, color: AppColors.stroke),
-                  
-                  Flexible( 
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), // Reduced vertical padding
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min, 
-                        children: [
-                          // 2. Order Summary Card
-                          _buildOrderSummaryCard(),
-                          const SizedBox(height: 16), // Reduced
-                          
-                          // 3. Select Reason
-                          Text(
-                            "Select a reason",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.primaryText,
-                            ),
-                          ),
-                          const SizedBox(height: 8), // Reduced
-                          ..._buildReasonList(),
-                          
-                          const SizedBox(height: 12), // Reduced
-                          
-                          // 5. Optional Toggle
-                          _buildPauseToggle(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  
-                  const Divider(height: 1, color: AppColors.stroke),
-
-                  // 6. Submit Button Section
-                  _buildBottomBar(),
-                ],
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      color: const Color(0xFFF9FAFB), 
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () => Navigator.pop(context), 
-            icon: const Icon(Icons.arrow_back, color: AppColors.primaryText, size: 20),
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            splashRadius: 20,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
+          SafeArea(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Reject Order",
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.error, // Red for Title
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
+                  child: Column(
+                    children: [
+                      // Header Row
+                      Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         crossAxisAlignment: CrossAxisAlignment.center,
+                         children: [
+                           // Back Button
+                           GestureDetector(
+                             onTap: () => Navigator.pop(context),
+                             child: Container(
+                               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                               decoration: BoxDecoration(
+                                 color: const Color(0xFFFEF2F2), // Light Red background
+                                 borderRadius: BorderRadius.circular(30),
+                                 boxShadow: [
+                                   BoxShadow(
+                                     color: Colors.black.withOpacity(0.1),
+                                     blurRadius: 4,
+                                     offset: const Offset(0, 2),
+                                   ),
+                                 ],
+                               ),
+                               child: Text(
+                                 "Back",
+                                 style: GoogleFonts.barlowCondensed(
+                                   fontSize: 22,
+                                   fontWeight: FontWeight.w700,
+                                   color: const Color(0xFFF90F24), // Red Text
+                                 ),
+                               ),
+                             ),
+                           ),
+                           
+                           // Title
+                           Text(
+                             "Reject Order",
+                             style: GoogleFonts.barlowCondensed(
+                               fontSize: 32,
+                               fontWeight: FontWeight.w700,
+                               color: Colors.white,
+                             ),
+                           ),
+                         ],
+                       ),
+                       const SizedBox(height: 24),
+
+                       // Order Summary Card
+                       _buildOrderSummaryCard(),
+                    ],
                   ),
                 ),
-                Text(
-                  "Help us understand why",
-                  style: GoogleFonts.poppins(
-                    fontSize: 11,
-                    color: AppColors.secondaryText,
+                
+                const SizedBox(height: 24),
+
+                // Main Content (Reasons)
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20, right: 20, top: 24, bottom: 8),
+                                child: Text(
+                                  "Help us understand why",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.primaryText,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      ..._buildReasonList(),
+                                      const SizedBox(height: 16),
+                                      _buildPauseToggle(),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Bottom Bar
+                        const Divider(height: 1, color: AppColors.stroke),
+                        _buildBottomBar(),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -159,23 +184,30 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
 
   Widget _buildOrderSummaryCard() {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF3F4F6), 
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white, 
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFFF3F4F6),
               shape: BoxShape.circle,
               border: Border.all(color: Colors.grey.shade200),
             ),
-            child: const Icon(Icons.storefront, size: 16, color: AppColors.primaryGreen),
+            child: const Icon(Icons.storefront, size: 24, color: AppColors.primaryGreen),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,14 +216,14 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
                   "Fresh Mart",
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
-                    fontSize: 13,
+                    fontSize: 16,
                     color: AppColors.primaryText,
                   ),
                 ),
                 Text(
                   "₹85 • 5.2 km • 22 mins",
                   style: GoogleFonts.poppins(
-                    fontSize: 11,
+                    fontSize: 13,
                     color: AppColors.secondaryText,
                     fontWeight: FontWeight.w500,
                   ),
@@ -204,20 +236,34 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
     );
   }
 
+  IconData _getIconForReason(String id) {
+    switch (id) {
+      case 'low_earnings': return Icons.account_balance_wallet_outlined;
+      case 'too_far': return Icons.directions_bike_outlined;
+      case 'no_tip': return Icons.money_off_csred_outlined;
+      case 'vehicle_issue': return Icons.two_wheeler;
+      case 'personal_break': return Icons.coffee_outlined;
+      case 'traffic': return Icons.traffic_outlined;
+      case 'pickup_difficult': return Icons.storefront_outlined;
+      case 'safety': return Icons.health_and_safety_outlined;
+      default: return Icons.radio_button_unchecked;
+    }
+  }
+
   List<Widget> _buildReasonList() {
     List<Widget> widgets = [];
     
     for (var group in _reasons) {
       widgets.add(
         Padding(
-          padding: const EdgeInsets.only(bottom: 4, top: 2), // Reduced
+          padding: const EdgeInsets.only(bottom: 8, top: 16),
           child: Text(
-            group['category'],
+            group['category'].toString().toUpperCase(),
             style: GoogleFonts.poppins(
               fontSize: 11,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
               color: AppColors.secondaryText,
-              letterSpacing: 0.5,
+              letterSpacing: 1.2,
             ),
           ),
         ),
@@ -229,7 +275,7 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
         
         widgets.add(
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 12),
             child: Column(
               children: [
                 InkWell(
@@ -239,33 +285,60 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
                       _selectedSubReason = null; 
                     });
                   },
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10), // Reduced vertical padding
+                  borderRadius: BorderRadius.circular(16),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
-                      color: isSelected ? AppColors.errorLight : Colors.white, // Red light bg
-                      borderRadius: BorderRadius.circular(12),
+                      color: isSelected ? AppColors.errorLight : Colors.white,
+                      borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: isSelected ? AppColors.error : AppColors.stroke, // Red border
+                        color: isSelected ? AppColors.error : Colors.grey.shade200,
                         width: isSelected ? 1.5 : 1,
                       ),
+                      boxShadow: isSelected ? [
+                        BoxShadow(
+                          color: AppColors.errorLight.withOpacity(0.5),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        )
+                      ] : [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.02),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        )
+                      ],
                     ),
                     child: Row(
                       children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: isSelected ? AppColors.error.withOpacity(0.1) : const Color(0xFFF5F7FA),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            _getIconForReason(option['id']), 
+                            size: 20, 
+                            color: isSelected ? AppColors.error : AppColors.secondaryText
+                          ),
+                        ),
+                        const SizedBox(width: 14),
                         Expanded(
                           child: Text(
                             option['label'],
                             style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                              color: isSelected ? AppColors.error : AppColors.primaryText, // Red text
+                              fontSize: 14,
+                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                              color: isSelected ? AppColors.primaryText : Colors.black87,
                             ),
                           ),
                         ),
-                         if (isSelected)
-                           const Icon(Icons.check_circle, size: 18, color: AppColors.error) // Red icon
-                         else
-                           Icon(Icons.radio_button_unchecked, size: 18, color: Colors.grey.shade400),
+                        if (isSelected)
+                          const Icon(Icons.radio_button_checked, size: 22, color: AppColors.error)
+                        else
+                          Icon(Icons.radio_button_unchecked, size: 22, color: Colors.grey.shade300),
                       ],
                     ),
                   ),
@@ -274,39 +347,40 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
                 // Sub-options Logic
                 if (isSelected && hasSubOptions)
                   Padding(
-                    padding: const EdgeInsets.only(top: 6, left: 12, right: 12),
+                    padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 4),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: (option['subOptions'] as List<String>).map((subOption) {
                         bool isSubSelected = _selectedSubReason == subOption;
-                        return InkWell(
+                        return GestureDetector(
                           onTap: () {
                             setState(() {
                               _selectedSubReason = subOption;
                             });
                           },
                           child: Container(
-                            margin: const EdgeInsets.only(bottom: 6),
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                            margin: const EdgeInsets.only(bottom: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                             decoration: BoxDecoration(
-                              color: isSubSelected ? AppColors.errorLight.withOpacity(0.5) : AppColors.background,
-                              borderRadius: BorderRadius.circular(8),
+                              color: isSubSelected ? AppColors.errorLight.withOpacity(0.7) : Colors.grey.shade50,
+                              borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: isSubSelected ? AppColors.error.withOpacity(0.5) : Colors.transparent,
+                                color: isSubSelected ? AppColors.error.withOpacity(0.5) : Colors.grey.shade200,
                               ),
                             ),
                             child: Row(
                               children: [
                                 Icon(
-                                  isSubSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                                  size: 14,
-                                  color: isSubSelected ? AppColors.error : AppColors.secondaryText, // Red icon
+                                  isSubSelected ? Icons.check_circle : Icons.circle_outlined,
+                                  size: 16,
+                                  color: isSubSelected ? AppColors.error : Colors.grey.shade400,
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 12),
                                 Text(
                                   subOption,
                                   style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                    fontSize: 13,
+                                    fontWeight: isSubSelected ? FontWeight.w600 : FontWeight.w500,
                                     color: isSubSelected ? AppColors.primaryText : AppColors.secondaryText,
                                   ),
                                 ),

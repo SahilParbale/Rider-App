@@ -637,12 +637,8 @@ class _OrderRequestScreenState extends State<OrderRequestScreen> with SingleTick
               onTap: () {
               Navigator.pushReplacement(
                 context,
-                PageRouteBuilder(
-                  opaque: false, 
-                  pageBuilder: (context, _, __) => const RejectOrderScreen(),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(opacity: animation, child: child);
-                  },
+                MaterialPageRoute(
+                  builder: (context) => const RejectOrderScreen(),
                 ),
               );
             },
