@@ -103,12 +103,15 @@ class _RejectOrderScreenState extends State<RejectOrderScreen> {
                            ),
                            
                            // Title
-                           Text(
-                             "Reject Order",
-                             style: GoogleFonts.barlowCondensed(
-                               fontSize: 32,
-                               fontWeight: FontWeight.w700,
-                               color: Colors.white,
+                           Flexible(
+                             child: Text(
+                               "Reason for order rejecting",
+                               textAlign: TextAlign.right,
+                               style: GoogleFonts.barlowCondensed(
+                                 fontSize: 26,
+                                 fontWeight: FontWeight.w700,
+                                 color: Colors.white,
+                               ),
                              ),
                            ),
                          ],

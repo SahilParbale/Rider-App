@@ -292,15 +292,15 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
     required VoidCallback onEdit,
   }) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -309,15 +309,15 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
           Row(
             children: [
               Container(
-                width: 44,
-                height: 44,
+                width: 36,
+                height: 36,
                 decoration: BoxDecoration(
                   color: const Color(0xFFF8FAFC),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.account_balance_wallet_outlined, size: 24, color: Color(0xFF64748B)),
+                child: const Icon(Icons.account_balance_wallet_outlined, size: 20, color: Color(0xFF64748B)),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                     Text(
                       "PROVIDER",
                       style: GoogleFonts.poppins(
-                        fontSize: 10,
+                        fontSize: 9,
                         fontWeight: FontWeight.w700,
                         color: Colors.grey[400],
                         letterSpacing: 0.5,
@@ -334,9 +334,9 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                     Text(
                       provider,
                       style: GoogleFonts.poppins(
-                        fontSize: 16, // Reduced from 18
+                        fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black, // Color to black
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -344,19 +344,19 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
               ),
               if (isDefault)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: AppColors.successLight,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(6),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.check, size: 13, color: AppColors.primaryGreen), // Reduced from 14
+                      const Icon(Icons.check, size: 10, color: AppColors.primaryGreen),
                       const SizedBox(width: 4),
                       Text(
                         "Default",
                         style: GoogleFonts.poppins(
-                          fontSize: 11, // Reduced from 12
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                           color: AppColors.primaryGreen,
                         ),
@@ -366,7 +366,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -378,38 +378,38 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                     Text(
                       "UPI ID",
                       style: GoogleFonts.poppins(
-                        fontSize: 9, // Reduced from 10
+                        fontSize: 8,
                         fontWeight: FontWeight.w700,
                         color: Colors.grey[400],
                         letterSpacing: 0.5,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
                     Text(
                       upiId,
                       style: GoogleFonts.poppins(
-                        fontSize: 20, // Reduced from 22
-                        fontWeight: FontWeight.w500, // Reduced weight from w700
-                        color: Colors.black, // Color to black
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: AppColors.successLight,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(6),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.check_circle, size: 13, color: AppColors.primaryGreen), // Reduced from 14
+                    const Icon(Icons.check_circle, size: 10, color: AppColors.primaryGreen),
                     const SizedBox(width: 4),
                     Text(
                       "Verified",
                       style: GoogleFonts.poppins(
-                        fontSize: 11, // Reduced from 12
+                        fontSize: 10,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryGreen,
                       ),
@@ -419,26 +419,27 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           Row(
             children: [
               Expanded(
                 child: GestureDetector(
                   onTap: onEdit,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: const Color(0xFFF8FAFC),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.edit_outlined, size: 18, color: Color(0xFF475569)),
-                        const SizedBox(width: 8),
+                        const Icon(Icons.edit_outlined, size: 14, color: Color(0xFF475569)),
+                        const SizedBox(width: 6),
                         Text(
                           "Edit",
                           style: GoogleFonts.poppins(
+                            fontSize: 11,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF475569),
                           ),
@@ -449,7 +450,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
               ),
               if (!isDefault) ...[
-                const SizedBox(width: 12),
+                const SizedBox(width: 8),
                 Expanded(
                   flex: 2,
                   child: GestureDetector(
@@ -465,15 +466,16 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                       });
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
                         color: const Color(0xFFF8FAFC),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Text(
                           "Set Default",
                           style: GoogleFonts.poppins(
+                            fontSize: 11,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF475569),
                           ),
@@ -483,7 +485,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                   ),
                 ),
               ],
-              const SizedBox(width: 12),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                    setState(() {
@@ -493,12 +495,12 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                    });
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFEF2F2),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(Icons.delete_outline, color: Color(0xFFEF4444), size: 20),
+                  child: const Icon(Icons.delete_outline, color: Color(0xFFEF4444), size: 16),
                 ),
               ),
             ],

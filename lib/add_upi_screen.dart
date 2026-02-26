@@ -102,7 +102,7 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                       Text(
                         widget.isEdit ? "Edit UPI ID" : "Add UPI ID",
                         style: GoogleFonts.barlowCondensed(
-                          fontSize: 28, // Reduced from 32
+                          fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                         ),
@@ -133,79 +133,30 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                         Text(
                           "Select UPI Provider",
                           style: GoogleFonts.poppins(
-                            fontSize: 16, // Reduced from 18
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black, // Color to black
+                            color: Colors.black,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: _providers.map((p) => _buildProviderOption(p)).toList(),
                         ),
                         
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 24),
                         
                         Text(
                           "Enter UPI ID",
                           style: GoogleFonts.poppins(
-                            fontSize: 16, // Reduced from 18
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black, // Color to black
+                            color: Colors.black,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 10),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.04),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primaryGreen, // Changed from Dark Navy
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Icon(Icons.alternate_email, color: Colors.white, size: 20),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: TextField(
-                                  controller: _upiController,
-                                  onChanged: (val) => setState(() {}),
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "yourname@bank",
-                                    hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
-                                  ),
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16, // Reduced from 18
-                                    color: Colors.black, // Color to black
-                                  ),
-                                ),
-                              ),
-                              if (_upiController.text.contains("@"))
-                                const Icon(Icons.check_circle, color: AppColors.primaryGreen, size: 24),
-                            ],
-                          ),
-                        ),
-                        
-                        const SizedBox(height: 32),
-                        
-                        // Default Switch
-                        Container(
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -221,13 +172,62 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                             children: [
                               Container(
                                 padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryGreen,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(Icons.alternate_email, color: Colors.white, size: 18),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: TextField(
+                                  controller: _upiController,
+                                  onChanged: (val) => setState(() {}),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "yourname@bank",
+                                    hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
+                                  ),
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              if (_upiController.text.contains("@"))
+                                const Icon(Icons.check_circle, color: AppColors.primaryGreen, size: 20),
+                            ],
+                          ),
+                        ),
+                        
+                        const SizedBox(height: 24),
+                        
+                        // Default Switch
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.04),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
                                 decoration: const BoxDecoration(
                                   color: Color(0xFFF8FAFC),
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.star, color: Color(0xFFF59E0B), size: 24),
+                                child: const Icon(Icons.star, color: Color(0xFFF59E0B), size: 20),
                               ),
-                              const SizedBox(width: 16),
+                              const SizedBox(width: 12),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,15 +236,15 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                                       "Set as Default",
                                       style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w700,
-                                        fontSize: 14, // Reduced from 15
-                                        color: Colors.black, // Color to black
+                                        fontSize: 13,
+                                        color: Colors.black,
                                       ),
                                     ),
                                     Text(
-                                      "Use as my default UPI payment",
+                                      "Use as my default UPI",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 11, // Reduced from 12
-                                        color: Colors.black54, // Color towards black
+                                        fontSize: 10,
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ],
@@ -260,16 +260,16 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                           ),
                         ),
                         
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 40),
                         
                         // Action Button
                         GestureDetector(
                           onTap: () => Navigator.pop(context),
                           child: Container(
                             width: double.infinity,
-                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
-                              color: AppColors.primaryGreen, // Changed from Dark Navy
+                              color: AppColors.primaryGreen,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
@@ -285,7 +285,7 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 16, // Reduced from 18
+                                  fontSize: 15,
                                   letterSpacing: 0.5,
                                 ),
                               ),
@@ -308,15 +308,15 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
   Widget _buildPreviewCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            blurRadius: 15,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -326,21 +326,21 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF8FAFC),
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.account_balance_wallet_outlined, size: 28, color: Color(0xFF64748B)),
+                child: const Icon(Icons.account_balance_wallet_outlined, size: 22, color: Color(0xFF64748B)),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 14),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "PROVIDER",
                     style: GoogleFonts.poppins(
-                      fontSize: 10,
+                      fontSize: 9,
                       fontWeight: FontWeight.w700,
                       color: Colors.grey[400],
                       letterSpacing: 1.0,
@@ -349,32 +349,32 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
                   Text(
                     _selectedProvider,
                     style: GoogleFonts.poppins(
-                      fontSize: 18, // Reduced from 20
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black, // Color to black
+                      color: Colors.black,
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
           Text(
             "UPI ID",
             style: GoogleFonts.poppins(
-              fontSize: 9, // Reduced from 10
+              fontSize: 8,
               fontWeight: FontWeight.w700,
               color: Colors.grey[400],
               letterSpacing: 1.0,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             _upiController.text.isEmpty ? "yourname@bank" : _upiController.text,
             style: GoogleFonts.poppins(
-              fontSize: 20, // Reduced from 24
-              fontWeight: FontWeight.w500, // Reduced weight from w700
-              color: _upiController.text.isEmpty ? Colors.grey[200] : Colors.black, // Color to black
+              fontSize: 18, 
+              fontWeight: FontWeight.w500,
+              color: _upiController.text.isEmpty ? Colors.grey[300] : Colors.black,
               letterSpacing: 0.5,
             ),
           ),
@@ -388,15 +388,15 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
     return GestureDetector(
       onTap: () => setState(() => _selectedProvider = provider["name"]),
       child: Container(
-        width: (MediaQuery.of(context).size.width - 32 - 32) / 3,
-        padding: const EdgeInsets.symmetric(vertical: 24),
+        width: (MediaQuery.of(context).size.width - 32 - 24) / 3,
+        padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryGreen : Colors.white, // Changed from Dark Navy
-          borderRadius: BorderRadius.circular(24),
+          color: isSelected ? AppColors.primaryGreen : Colors.white,
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: AppColors.primaryGreen.withOpacity(isSelected ? 0.2 : 0.04),
-              blurRadius: 10,
+              blurRadius: 8,
               offset: const Offset(0, 4),
             ),
           ],
@@ -404,7 +404,7 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: isSelected ? Colors.white.withOpacity(0.1) : const Color(0xFFF8FAFC),
                 shape: BoxShape.circle,
@@ -412,26 +412,26 @@ class _AddUpiScreenState extends State<AddUpiScreen> {
               child: Icon(
                 isSelected ? Icons.check_circle : provider["icon"],
                 color: isSelected ? Colors.white : AppColors.primaryGreen,
-                size: 20, // Reduced from 22
+                size: 18,
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 10),
             Text(
               provider["name"],
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.poppins(
-                fontSize: 13, // Reduced from 14
+                fontSize: 11,
                 fontWeight: FontWeight.w700,
-                color: isSelected ? Colors.white : Colors.black, // Color to black
+                color: isSelected ? Colors.white : Colors.black,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
-              provider["handle"],
+              provider["handle"].split(', ')[0],
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.poppins(
-                fontSize: 8, // Reduced from 9
-                color: isSelected ? Colors.white60 : Colors.black54, // Color towards black
+                fontSize: 8,
+                color: isSelected ? Colors.white60 : Colors.black54,
                 fontWeight: FontWeight.w500,
               ),
             ),
