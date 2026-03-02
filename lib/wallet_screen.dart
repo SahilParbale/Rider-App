@@ -518,61 +518,78 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
 
                 // Scrollable Content
                 Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 16), // Match Withdraw padding
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        
-                        // Stats Row
-                        Row(
-                          children: [
-                            Expanded(child: _buildStatCard("This Week", "₹245", const Color(0xFF4CAF50))),
-                            const SizedBox(width: 16),
-                            Expanded(child: _buildStatCard("This Month", "₹1,024", Colors.blue)),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-
-
-
-
-                        // Transaction History
-                        Text("Transaction History", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
-                        const SizedBox(height: 12),
-                        
-                        // Filters
-                        Row(
-                          children: [
-                            _buildFilterChip("All"),
-                            const SizedBox(width: 12),
-                            _buildFilterChip("Credit"),
-                            const SizedBox(width: 12),
-                            _buildFilterChip("Debit"),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-
-                        // Transactions List
-                        ...filteredTransactions.map((t) => Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _buildTransactionCard(
-                             icon: t['icon'],
-                             title: t['title'],
-                             id: t['id'],
-                             desc: t['desc'],
-                             time: t['time'],
-                             amount: t['amount'],
-                             isPositive: t['isPositive'],
-                             isWithdrawal: t['isWithdrawal'] ?? false,
-                             customIconBg: t['customIconBg'],
-                             customIconColor: t['customIconColor'],
+                  child: CustomScrollView(
+                    slivers: [
+                      // Scrollable Stats Row
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                          child: Row(
+                            children: [
+                              Expanded(child: _buildStatCard("This Week", "₹245", const Color(0xFF4CAF50))),
+                              const SizedBox(width: 16),
+                              Expanded(child: _buildStatCard("This Month", "₹1,024", Colors.blue)),
+                            ],
                           ),
-                        )),
-                        
-                        const SizedBox(height: 100), // Increased to avoid overlap with nav bar
-                      ],
-                    ),
+                        ),
+                      ),
+                      
+                      // Transaction History Sticky Header
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: _StickyHeaderDelegate(
+                          child: Container(
+                            color: const Color(0xFFF5F5F5), // Match background color to obscure scrolling stats
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text("Transaction History", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
+                                const SizedBox(height: 12),
+                                Row(
+                                  children: [
+                                    _buildFilterChip("All"),
+                                    const SizedBox(width: 12),
+                                    _buildFilterChip("Credit"),
+                                    const SizedBox(width: 12),
+                                    _buildFilterChip("Debit"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      
+                      // Transactions List
+                      SliverPadding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              final t = filteredTransactions[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: _buildTransactionCard(
+                                   icon: t['icon'],
+                                   title: t['title'],
+                                   id: t['id'],
+                                   desc: t['desc'],
+                                   time: t['time'],
+                                   amount: t['amount'],
+                                   isPositive: t['isPositive'],
+                                   isWithdrawal: t['isWithdrawal'] ?? false,
+                                   customIconBg: t['customIconBg'],
+                                   customIconColor: t['customIconColor'],
+                                ),
+                              );
+                            },
+                            childCount: filteredTransactions.length,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -735,4 +752,30 @@ class PaymentMethod {
     required this.icon, 
     required this.color
   });
+}
+
+class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _StickyHeaderDelegate({required this.child});
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: const Color(0xFFF5F5F5), // Ensure background covers scrolling elements
+      alignment: Alignment.centerLeft,
+      child: child,
+    );
+  }
+
+  @override
+  double get maxExtent => 90.0; 
+
+  @override
+  double get minExtent => 90.0;
+
+  @override
+  bool shouldRebuild(covariant _StickyHeaderDelegate oldDelegate) {
+    return true;
+  }
 }
