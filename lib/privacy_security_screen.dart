@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'privacy_policy_screen.dart';
+import 'manage_permissions_screen.dart';
 
 class PrivacySecurityScreen extends StatelessWidget {
   const PrivacySecurityScreen({super.key});
@@ -111,6 +112,12 @@ class PrivacySecurityScreen extends StatelessWidget {
                         color: Colors.orange,
                         content: "Control over your data. You can manage permissions like Location, Camera, and Notifications at any time through your device settings.",
                         actionText: "Manage Permissions",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ManagePermissionsScreen()),
+                          );
+                        }
                       ),
 
                       _buildSecuritySection(
