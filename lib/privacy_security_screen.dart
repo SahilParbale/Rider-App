@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'privacy_policy_screen.dart';
 import 'manage_permissions_screen.dart';
+import 'change_password_screen.dart';
 
 class PrivacySecurityScreen extends StatelessWidget {
   const PrivacySecurityScreen({super.key});
@@ -126,6 +127,12 @@ class PrivacySecurityScreen extends StatelessWidget {
                         color: Colors.purple,
                         content: "Keep your account safe. We recommend using a strong password and enabling biometric login if supported by your device.",
                         actionText: "Change Password",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                          );
+                        }
                       ),
 
                       _buildSecuritySection(
