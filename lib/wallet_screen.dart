@@ -535,75 +535,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
                         const SizedBox(height: 24),
 
 
-                        // Payment Methods
-                        Text(
-                          "Select Payment Method",
-                           style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        
-                        // Payment Type Selection Row
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _buildPaymentTypeCard("Pay App", Icons.account_balance_wallet, "Quick payment", _paymentType == "Pay App"),
-                            const SizedBox(width: 12),
-                            _buildPaymentTypeCard("UPI", Icons.payment, "Pay via UPI", _paymentType == "UPI"),
-                          ],
-                        ),
-                        
-                        const SizedBox(height: 24),
-                        
-                        // Dynamic Content based on Selection
-                        if (_paymentType == "Pay App") ...[
-                            if (_selectedPayApp != null) ...[
-                                Text(
-                                  "Selected Payment App",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                                const SizedBox(height: 12),
-                                GestureDetector(
-                                    onTap: () => _showPaymentMethodSelector("Select Payment App", _payAppMethods, (method) {
-                                        setState(() {
-                                            _selectedPayApp = method;
-                                            Navigator.pop(context);
-                                        });
-                                    }),
-                                    child: _buildPaymentMethodItem(_selectedPayApp!, isSelected: true),
-                                ),
-                            ]
-                        ] else if (_paymentType == "UPI") ...[
-                            if (_selectedUPI != null) ...[
-                                Text(
-                                  "Selected UPI ID",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                                const SizedBox(height: 12),
-                                GestureDetector(
-                                    onTap: () => _showPaymentMethodSelector("Select UPI ID", _upiMethods, (method) {
-                                        setState(() {
-                                            _selectedUPI = method;
-                                            Navigator.pop(context);
-                                        });
-                                    }),
-                                    child: _buildPaymentMethodItem(_selectedUPI!, isSelected: true),
-                                ),
-                            ]
-                        ],
 
-                        const SizedBox(height: 24),
 
                         // Transaction History
                         Text("Transaction History", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
