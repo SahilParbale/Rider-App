@@ -121,22 +121,23 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
           child: GestureDetector(
               onTap: () {
                   setState(() {
-                      if (_withdrawType == "Pay App") {
-                          _showWithdrawalMethodSelector("Select Payment App", _methods, (method) {
-                              setState(() {
-                                  _selectedPayApp = method;
-                                  Navigator.pop(context);
-                              });
-                          });
-                      } else if (_withdrawType == "UPI") {
-                          _showWithdrawalMethodSelector("Select UPI ID", _upiMethods, (method) {
-                              setState(() {
-                                  _selectedUPI = method;
-                                  Navigator.pop(context);
-                              });
-                          });
-                      }
+                      _withdrawType = title;
                   });
+                  if (title == "Pay App") {
+                      _showWithdrawalMethodSelector("Select Payment App", _methods, (method) {
+                          setState(() {
+                              _selectedPayApp = method;
+                              Navigator.pop(context);
+                          });
+                      });
+                  } else if (title == "UPI") {
+                      _showWithdrawalMethodSelector("Select UPI ID", _upiMethods, (method) {
+                          setState(() {
+                              _selectedUPI = method;
+                              Navigator.pop(context);
+                          });
+                      });
+                  }
               },
               child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
