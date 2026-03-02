@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
+import 'privacy_policy_screen.dart';
 
 class PrivacySecurityScreen extends StatelessWidget {
   const PrivacySecurityScreen({super.key});
@@ -89,6 +90,12 @@ class PrivacySecurityScreen extends StatelessWidget {
                         color: Colors.blue,
                         content: "We value your privacy. Our policy outlines how we collect, use, and protect your information to provide a better delivery experience.",
                         actionText: "Read Full Policy",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),
+                          );
+                        }
                       ),
                       
                       _buildSecuritySection(
@@ -164,6 +171,7 @@ class PrivacySecurityScreen extends StatelessWidget {
     required Color color,
     required String content,
     String? actionText,
+    VoidCallback? onTap,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -221,7 +229,7 @@ class PrivacySecurityScreen extends StatelessWidget {
                 if (actionText != null) ...[
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: onTap ?? () {},
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       decoration: BoxDecoration(
