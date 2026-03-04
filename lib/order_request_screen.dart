@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'reject_order_screen.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 class OrderRequestScreen extends StatefulWidget {
   final VoidCallback? onAccept;
@@ -29,6 +30,7 @@ class _OrderRequestScreenState extends State<OrderRequestScreen> with SingleTick
       duration: const Duration(seconds: 1),
     )..repeat(reverse: true);
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(_pulseController);
+    FlutterRingtonePlayer().playNotification();
   }
 
   void startTimer() {
@@ -47,6 +49,7 @@ class _OrderRequestScreenState extends State<OrderRequestScreen> with SingleTick
 
   @override
   void dispose() {
+    FlutterRingtonePlayer().stop();
     _timer?.cancel();
     _pulseController.dispose();
     super.dispose();
