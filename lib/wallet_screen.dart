@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'withdraw_screen.dart';
 import 'settle_payment_screen.dart' hide PaymentMethod;
 import 'add_money_screen.dart' hide PaymentMethod;
 import 'constants.dart';
+import 'providers/wallet_provider.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -255,104 +257,17 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
       );
   }
 
-  final List<Map<String, dynamic>> _transactions = [
-    {
-      "icon": Icons.trending_up,
-      "title": "Order Delivery",
-      "id": "#01234",
-      "desc": "Delivery earnings",
-      "time": "2 hours ago",
-      "amount": "+₹8.50",
-      "isPositive": true,
-      "type": "Credit",
-    },
-    {
-      "icon": Icons.account_balance,
-      "title": "Bank Transfer",
-      "id": "",
-      "desc": "Withdrawn to Bank ****4532",
-      "time": "Yesterday",
-      "amount": "₹150.00",
-      "isPositive": false,
-      "isWithdrawal": true,
-      "type": "Debit",
-    },
-    {
-      "icon": Icons.trending_up,
-      "title": "Order Delivery",
-      "id": "#01189",
-      "desc": "Delivery earnings",
-      "time": "Yesterday",
-      "amount": "+₹12.30",
-      "isPositive": true,
-      "type": "Credit",
-    },
-    {
-      "icon": Icons.local_gas_station,
-      "title": "Fuel Expense",
-      "id": "",
-      "desc": "Gasoline purchase",
-      "time": "2 days ago",
-      "amount": "₹25.00",
-      "isPositive": false,
-      "isWithdrawal": true,
-      "customIconBg": const Color(0xFFFFEBEE),
-      "customIconColor": Colors.red,
-      "type": "Debit",
-    },
-    {
-      "icon": Icons.trending_up,
-      "title": "Order Delivery",
-      "id": "#00987",
-      "desc": "Delivery earnings",
-      "time": "2 days ago",
-      "amount": "+₹15.75",
-      "isPositive": true,
-      "type": "Credit",
-    },
-    {
-      "icon": Icons.trending_up,
-      "title": "Weekly Bonus",
-      "id": "",
-      "desc": "Performance bonus",
-      "time": "3 days ago",
-      "amount": "+₹50.00",
-      "isPositive": true,
-      "customIconBg": const Color(0xFFFFF3E0),
-      "customIconColor": Colors.orange,
-      "type": "Credit",
-    },
-    {
-      "icon": Icons.shopping_bag_outlined,
-      "title": "Equipment Buy",
-      "id": "",
-      "desc": "Delivery bag purchase",
-      "time": "4 days ago",
-      "amount": "₹45.00",
-      "isPositive": false,
-      "isWithdrawal": true,
-      "type": "Debit",
-    },
-     {
-      "icon": Icons.trending_up,
-      "title": "Order Delivery",
-      "id": "#00852",
-      "desc": "Delivery earnings",
-      "time": "5 days ago",
-      "amount": "+₹9.20",
-      "isPositive": true,
-      "type": "Credit",
-    },
-  ];
-
   List<Map<String, dynamic>> get filteredTransactions {
-    if (_selectedFilter == "All") return _transactions;
-    return _transactions.where((t) => t['type'] == _selectedFilter).toList();
+    final transactions = context.watch<WalletProvider>().transactions;
+    if (_selectedFilter == "All") return transactions;
+    return transactions.where((t) => t['type'] == _selectedFilter).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final walletProvider = context.watch<WalletProvider>();
+    
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5), // Light grey background
       body: Stack(
@@ -445,7 +360,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
                              ),
                             const SizedBox(height: 8),
                             Text(
-                              "₹789.00",
+                              "₹${walletProvider.balance.toStringAsFixed(2)}",
                               style: GoogleFonts.barlowCondensed(
                                 fontSize: 42,
                                 fontWeight: FontWeight.w700, 

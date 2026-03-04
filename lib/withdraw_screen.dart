@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
+import 'providers/wallet_provider.dart';
 
 class WithdrawScreen extends StatefulWidget {
   const WithdrawScreen({super.key});
@@ -144,11 +146,16 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                   decoration: BoxDecoration(
                       color: isSelected ? AppColors.primaryGreen : Colors.white,
                       borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                          color: isSelected ? AppColors.primaryGreen : Colors.grey.withOpacity(0.2),
+                          width: 1.5,
+                      ),
                       boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.05),
-                              blurRadius: 5,
-                          ),
+                          if (!isSelected)
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.05),
+                                  blurRadius: 5,
+                              ),
                       ],
                   ),
                   child: Column(
@@ -291,6 +298,9 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final walletProvider = context.watch<WalletProvider>();
+    final currentBalance = walletProvider.balance;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: Stack(
@@ -405,7 +415,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                             ),
                             const SizedBox(height: 8),
                              Text(
-                              "₹789.00",
+                              "₹${currentBalance.toStringAsFixed(2)}",
                               style: GoogleFonts.barlowCondensed(
                                 color: AppColors.primaryGreen,
                                 fontSize: 42,
@@ -642,7 +652,34 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                       height: 56,
                       child: ElevatedButton(
                           onPressed: () {
-                              // Handle withdraw action
+                              double amount = double.tryParse(_amountController.text) ?? 0.0;
+                              if (amount >= 10 && amount <= currentBalance) {
+                                context.read<WalletProvider>().withdrawMoney(amount);
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Withdrawal successful!"),
+                                    backgroundColor: Colors.green,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              } else if (amount > currentBalance) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Insufficient balance!"),
+                                    backgroundColor: Colors.red,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Minimum withdrawal is ₹10"),
+                                    backgroundColor: Colors.red,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryGreen,

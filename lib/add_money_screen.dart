@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
+import 'providers/wallet_provider.dart';
 
 class AddMoneyScreen extends StatefulWidget {
   const AddMoneyScreen({super.key});
@@ -11,7 +13,6 @@ class AddMoneyScreen extends StatefulWidget {
 
 class _AddMoneyScreenState extends State<AddMoneyScreen> {
   final TextEditingController _amountController = TextEditingController();
-  final double _currentBalance = 789.00;
   String? _paymentType; // No default selection
 
   // Track selection per type
@@ -150,11 +151,16 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                   decoration: BoxDecoration(
                       color: isSelected ? AppColors.primaryGreen : Colors.white,
                       borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                          color: isSelected ? AppColors.primaryGreen : Colors.grey.withOpacity(0.2),
+                          width: 1.5,
+                      ),
                       boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.05),
-                              blurRadius: 5,
-                          ),
+                          if (!isSelected)
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.05),
+                                  blurRadius: 5,
+                              ),
                       ],
                   ),
                   child: Column(
@@ -274,8 +280,10 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final walletProvider = context.watch<WalletProvider>();
+    double currentBalance = walletProvider.balance;
     double amountToAdd = double.tryParse(_amountController.text) ?? 0.0;
-    double newBalance = _currentBalance + amountToAdd;
+    double newBalance = currentBalance + amountToAdd;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -388,7 +396,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              "₹${_currentBalance.toStringAsFixed(2)}",
+                              "₹${currentBalance.toStringAsFixed(2)}",
                               style: GoogleFonts.barlowCondensed(
                                 color: const Color(0xFF2C3E50),
                                 fontSize: 42,
@@ -615,7 +623,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                           ),
                           child: Column(
                             children: [
-                              _buildSummaryRow("Current Balance", "₹${_currentBalance.toStringAsFixed(2)}"),
+                              _buildSummaryRow("Current Balance", "₹${currentBalance.toStringAsFixed(2)}"),
                               const SizedBox(height: 8),
                               _buildSummaryRow("Amount to Add", "₹${amountToAdd.toStringAsFixed(0)}"),
                               const SizedBox(height: 8),
@@ -645,7 +653,25 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                       height: 56,
                       child: ElevatedButton(
                           onPressed: () {
-                              // Handle Add Money
+                              if (amountToAdd > 0) {
+                                context.read<WalletProvider>().addMoney(amountToAdd);
+                                Navigator.pop(context); // Go back to wallet on success
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Money added successfully!"),
+                                    backgroundColor: Colors.green,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Please enter a valid amount"),
+                                    backgroundColor: Colors.red,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryGreen,

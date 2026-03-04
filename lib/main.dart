@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
 import 'main_scaffold.dart';
+import 'providers/wallet_provider.dart';
 
 import 'package:flutter/services.dart';
 
@@ -10,7 +12,14 @@ void main() {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-  runApp(const DeliveryApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WalletProvider()),
+      ],
+      child: const DeliveryApp(),
+    ),
+  );
 }
 
 class DeliveryApp extends StatelessWidget {

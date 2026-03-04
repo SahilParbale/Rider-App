@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
+import 'providers/wallet_provider.dart';
 
 class SettlePaymentScreen extends StatefulWidget {
   const SettlePaymentScreen({super.key});
@@ -10,10 +12,9 @@ class SettlePaymentScreen extends StatefulWidget {
 }
 
 class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
-  final double _totalAmountDue = 189.00;
   final TextEditingController _amountController = TextEditingController();
-  
   String? _paymentType; // No default selection
+  bool _initialized = false;
   
   // Track selection per type
   PaymentMethod? _selectedPayApp;
@@ -33,8 +34,17 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
   @override
   void initState() {
     super.initState();
-    _amountController.text = _totalAmountDue.toStringAsFixed(0);
     _amountController.addListener(_onAmountChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+        double initialDue = context.read<WalletProvider>().amountDue;
+        _amountController.text = initialDue.toStringAsFixed(0);
+        _initialized = true;
+    }
   }
 
   @override
@@ -152,11 +162,16 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                   decoration: BoxDecoration(
                       color: isSelected ? AppColors.primaryGreen : Colors.white,
                       borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                          color: isSelected ? AppColors.primaryGreen : Colors.grey.withOpacity(0.2),
+                          width: 1.5,
+                      ),
                       boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.05),
-                              blurRadius: 5,
-                          ),
+                          if (!isSelected)
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.05),
+                                  blurRadius: 5,
+                              ),
                       ],
                   ),
                   child: Column(
@@ -276,8 +291,11 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final walletProvider = context.watch<WalletProvider>();
+    final double totalAmountDue = walletProvider.amountDue;
+    
     double enteredAmount = double.tryParse(_amountController.text) ?? 0.0;
-    double remainingBalance = (_totalAmountDue - enteredAmount).clamp(0.0, _totalAmountDue);
+    double remainingBalance = (totalAmountDue - enteredAmount).clamp(0.0, totalAmountDue);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -392,7 +410,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                             ),
                             const SizedBox(height: 8),
                              Text(
-                              "₹${_totalAmountDue.toStringAsFixed(0)}",
+                              "₹${totalAmountDue.toStringAsFixed(0)}",
                               style: GoogleFonts.barlowCondensed(
                                 color: const Color(0xFFE53935), // Red/Orange for Due
                                 fontSize: 42,
@@ -486,7 +504,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                          children: [
                            Expanded(
                              child: GestureDetector(
-                               onTap: () => _setAmount(_totalAmountDue * 0.5),
+                               onTap: () => _setAmount(totalAmountDue * 0.5),
                                child: Container(
                                  padding: const EdgeInsets.symmetric(vertical: 12),
                                  decoration: BoxDecoration(
@@ -506,7 +524,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                            const SizedBox(width: 16),
                            Expanded(
                              child: GestureDetector(
-                               onTap: () => _setAmount(_totalAmountDue),
+                               onTap: () => _setAmount(totalAmountDue),
                                child: Container(
                                   padding: const EdgeInsets.symmetric(vertical: 12),
                                  decoration: BoxDecoration(
@@ -641,7 +659,33 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
                       height: 56,
                       child: ElevatedButton(
                           onPressed: () {
-                              // Handle Settlement
+                              if (enteredAmount > 0 && enteredAmount <= totalAmountDue) {
+                                context.read<WalletProvider>().settlePayment(enteredAmount);
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Payment settled successfully!"),
+                                    backgroundColor: Colors.green,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              } else if (enteredAmount > totalAmountDue) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Cannot pay more than amount due"),
+                                    backgroundColor: Colors.red,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Please enter a valid amount"),
+                                    backgroundColor: Colors.red,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryGreen,
@@ -666,6 +710,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
       ),
     );
   }
+
 
 
 
