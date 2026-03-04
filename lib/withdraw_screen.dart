@@ -15,7 +15,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
   int _selectedAmount = 0;
   WithdrawalMethod? _selectedMethod; // Deprecated, keeping for safety but not used
   // ignore: unused_field
-  String _withdrawType = "Pay App"; // Default selection
+  String? _withdrawType; // No default selection
   
   final List<WithdrawalMethod> _methods = [
     WithdrawalMethod(id: "1", name: "Google Pay", subtitle: "sarah@oksbi", icon: Icons.account_balance_wallet, color: Colors.blue),

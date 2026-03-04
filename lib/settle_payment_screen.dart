@@ -13,7 +13,7 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
   final double _totalAmountDue = 189.00;
   final TextEditingController _amountController = TextEditingController();
   
-  String _paymentType = "Pay App"; // Default selection
+  String? _paymentType; // No default selection
   
   // Track selection per type
   PaymentMethod? _selectedPayApp;
@@ -129,23 +129,23 @@ class _SettlePaymentScreenState extends State<SettlePaymentScreen> {
               onTap: () {
                   setState(() {
                       _paymentType = title;
-                      
-                      if (_paymentType == "Pay App") {
-                          _showPaymentMethodSelector("Select Payment App", _payAppMethods, (method) {
-                              setState(() {
-                                  _selectedPayApp = method;
-                                  Navigator.pop(context);
-                              });
-                          });
-                      } else if (_paymentType == "UPI") {
-                          _showPaymentMethodSelector("Select UPI ID", _upiMethods, (method) {
-                              setState(() {
-                                  _selectedUPI = method;
-                                  Navigator.pop(context);
-                              });
-                          });
-                      }
                   });
+                  
+                  if (title == "Pay App") {
+                      _showPaymentMethodSelector("Select Payment App", _payAppMethods, (method) {
+                          setState(() {
+                              _selectedPayApp = method;
+                              Navigator.pop(context);
+                          });
+                      });
+                  } else if (title == "UPI") {
+                      _showPaymentMethodSelector("Select UPI ID", _upiMethods, (method) {
+                          setState(() {
+                              _selectedUPI = method;
+                              Navigator.pop(context);
+                          });
+                      });
+                  }
               },
               child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
