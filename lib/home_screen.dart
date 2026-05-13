@@ -31,35 +31,35 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     // Scaffold removed, returning the main content Stack directly.
     return Container(
       color: const Color(0xFFF5F5F5),
-      child: Stack(
+      child: Column(
         children: [
-          // Green Header Background
-          Positioned(
-            top: 0,
-            left: -5,
-            right: -5,
-            child: Container(
-              height: 220,
-              decoration: const BoxDecoration(
-                color: AppColors.headerGreen,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+          // Fixed Header Section with overlapping background
+          Stack(
+            children: [
+              // Green Header Background
+              Positioned(
+                top: 0,
+                left: -5,
+                right: -5,
+                bottom: 110, // Adjusts overlap: ~75% bottom, ~25% on green
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.headerGreen,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                // Fixed Header Section
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 5, 8, 10),
+              SafeArea(
+                bottom: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  // Top Header: Avatar + Online Toggle + Notification
+                      // Top Header: Avatar + Online Toggle + Notification
                   Row(
                     children: [
                       GestureDetector(
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       color: Colors.white.withOpacity(0.9),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 30),
                   
                   // Stats Cards
                   Row(
@@ -224,20 +224,22 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
                     ],
                   ),
                 ),
-                
-                // Scrollable Content
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Auto-Settle Dues
-                        Container(
+              ),
+            ],
+          ),
+          
+          // Scrollable Content
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Auto-Settle Dues
+                  Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -360,11 +362,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                     iconColor: Colors.green, // Adjust based on image maybe Teal/Green
                   ),
                   const SizedBox(height: 100), // Increased to avoid overlap with nav bar
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
